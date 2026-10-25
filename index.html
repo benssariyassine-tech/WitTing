@@ -33,11 +33,25 @@
 
         .header-right, .header-left { display: flex; align-items: center; gap: 10px; }
         
-        .site-logo { display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 20px; cursor: pointer;}
-        .site-logo svg { width: 32px; height: 32px; fill: var(--primary); }
+        /* شعار W الجديد */
+        .site-logo { display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 22px; cursor: pointer; color: var(--primary);}
+        .site-logo svg { width: 30px; height: 30px; fill: var(--primary); }
 
         .icon-btn { background: none; border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 5px;}
         .icon-btn svg { width: 24px; height: 24px; fill: white; }
+
+        /* ================= زر الرجوع الزجاجي (Back Button) ================= */
+        .back-btn {
+            position: fixed; top: 70px; right: 20px; z-index: 999;
+            width: 45px; height: 45px; border-radius: 50%;
+            background: var(--glass-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border); color: white;
+            display: none; align-items: center; justify-content: center;
+            cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: transform 0.2s;
+        }
+        .back-btn:active { transform: scale(0.9); }
+        .back-btn svg { width: 24px; height: 24px; fill: currentColor; }
 
         /* ================= شريط البحث ================= */
         .search-overlay {
@@ -73,12 +87,12 @@
         .card-meta { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
 
         .empty-state { text-align: center; padding: 50px 20px; color: var(--text-muted); grid-column: 1/-1; }
-        .empty-state svg { width: 60px; height: 60px; fill: #333; margin: 0 auto 15px; }
 
         /* ================= صفحة التفاصيل ================= */
         .backdrop { width: 100%; height: 350px; object-fit: cover; position: absolute; top: 0; left: 0; z-index: -1; mask-image: linear-gradient(to bottom, black 30%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 100%); }
         
-        .details-content { padding: 150px 20px 20px; }
+        /* زدنا padding-bottom باش القائمة السفلية ماتغطيش على المعلومات */
+        .details-content { padding: 150px 20px 100px; }
         .details-header { display: flex; gap: 15px; align-items: flex-end; margin-bottom: 20px; }
         .details-poster { width: 130px; border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.8); }
         
@@ -100,7 +114,7 @@
         .video-wrapper { width: 100%; aspect-ratio: 16/9; background: #000; }
         .video-wrapper video { width: 100%; height: 100%; }
         
-        .watch-details { padding: 20px; }
+        .watch-details { padding: 20px 20px 100px; }
         .watch-title { font-size: 18px; font-weight: 800; margin-bottom: 10px; }
         
         .server-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin: 15px 0; }
@@ -114,25 +128,20 @@
         /* ================= الفوتر (Footer) ================= */
         .site-footer {
             background: var(--surface);
-            padding: 40px 20px 80px;
+            padding: 40px 20px 100px;
             border-top: 1px solid #222;
             margin-top: 30px;
             text-align: center;
         }
 
-        .footer-logos {
-            display: flex; justify-content: center; align-items: center; gap: 30px; margin-bottom: 30px;
-        }
-
-        .footer-logo-item { display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0.7; }
+        .footer-logos { display: flex; justify-content: center; align-items: center; gap: 40px; margin-bottom: 30px; }
+        .footer-logo-item { display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0.8; }
         .footer-logo-item svg { width: 40px; height: 40px; }
-        .footer-logo-item span { font-size: 12px; font-weight: bold; }
+        .footer-logo-item span { font-size: 13px; font-weight: bold; }
 
-        .footer-links {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 400px; margin: 0 auto 30px;
-        }
-        
-        .footer-links a { color: var(--text-muted); font-size: 13px; transition: color 0.3s; }
+        .footer-links { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 400px; margin: 0 auto 30px; }
+        /* الروابط ولات أزرار كتخدم */
+        .footer-links a { color: var(--text-muted); font-size: 13px; transition: color 0.3s; cursor: pointer; }
         .footer-links a:hover { color: white; }
 
         .footer-copyright { border-top: 1px solid #222; padding-top: 20px; color: #555; font-size: 11px; line-height: 1.6; }
@@ -154,21 +163,44 @@
         .nav-item.active { color: var(--text-main); }
         .nav-item.active::after { content: ''; position: absolute; bottom: 8px; width: 4px; height: 4px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 8px var(--primary); }
 
+        /* ================= النافذة المنبثقة (Modal) ================= */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px);
+            z-index: 3000; display: none; align-items: center; justify-content: center; padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-content {
+            background: var(--surface); border: 1px solid #333; border-radius: 15px;
+            width: 100%; max-width: 400px; padding: 25px; position: relative;
+            animation: fadeIn 0.3s ease;
+        }
+        .modal-close { position: absolute; top: 15px; left: 15px; background: none; border: none; color: #aaa; cursor: pointer; }
+        .modal-close svg { width: 24px; height: 24px; fill: currentColor; }
+        .modal-title { font-size: 18px; font-weight: 800; margin-bottom: 15px; color: var(--primary); }
+        .modal-text { color: #ccc; font-size: 14px; line-height: 1.8; }
+
     </style>
 </head>
 <body>
 
+    <!-- زر الرجوع (مخفي أوتوماتيكياً في الرئيسية) -->
+    <button class="back-btn" id="globalBackBtn" onclick="router.go('home')">
+        <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+    </button>
+
     <!-- ================= الهيدر ================= -->
     <header class="header">
         <div class="header-right">
+            <!-- شعار الموقع الجديد W -->
             <div class="site-logo" onclick="router.go('home')">
-                <svg viewBox="0 0 24 24"><path d="M3 3h4l5 14 5-14h4l-7 18h-4L3 3z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M2 4h4l3 12 3-10h4l3 10 3-12h4l-5 16h-4l-3-10-3 10H7L2 4z"/></svg>
+                Wit-Ting
             </div>
         </div>
         
         <div class="header-left">
             <button class="icon-btn" onclick="toggleSearch()">
-                <svg viewBox="0 0 1224 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
             </button>
         </div>
     </header>
@@ -189,34 +221,34 @@
         <div class="section-header">
             <h2 class="section-title" id="homeTitle">أحدث الإضافات</h2>
         </div>
-        <div class="grid-container" id="homeGrid">
-            <!-- سيتم ملؤها بالجافاسكريبت -->
-        </div>
+        <div class="grid-container" id="homeGrid"></div>
 
-        <!-- ================= الفوتر (Footer) ================= -->
+        <!-- الفوتر -->
         <footer class="site-footer">
             <div class="footer-logos">
+                <!-- شعار iStore -->
                 <div class="footer-logo-item">
                     <svg viewBox="0 0 24 24" fill="#4db8b8"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/><circle cx="4" cy="12" r="2" fill="#4db8b8"/></svg>
                     <span>iStore Team</span>
                 </div>
+                <!-- شعار GitHub المصحح -->
                 <div class="footer-logo-item">
-                    <svg viewBox="0 0 24 24" fill="white"><path d="M12 2C6.477 2 2 6.477 2 c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                    <svg viewBox="0 0 24 24" fill="white"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                     <span>GitHub</span>
                 </div>
             </div>
 
             <div class="footer-links">
-                <a href="#">شروط الاستخدام</a>
-                <a href="#">من نحن</a>
-                <a href="#">اتصل بالدعم</a>
-                <a href="#">سياسة الخصوصية</a>
-                <a href="#" style="grid-column: 1 / -1;">حقوق الملكية (DMCA)</a>
+                <a onclick="openModal('شروط الاستخدام', 'هنا يتم كتابة شروط الاستخدام الخاصة بموقع Wit-Ting. يرجى قراءتها بعناية.')">شروط الاستخدام</a>
+                <a onclick="openModal('من نحن', 'نحن منصة Wit-Ting، نوفر لك أفضل تجربة لمشاهدة الأنمي والأفلام المترجمة بأعلى جودة.')">من نحن</a>
+                <a onclick="openModal('اتصل بالدعم', 'للتواصل معنا، يرجى مراسلتنا عبر البريد الإلكتروني: support@witting.com')">اتصل بالدعم</a>
+                <a onclick="openModal('سياسة الخصوصية', 'نحن نحترم خصوصيتك. لا نقوم بتخزين أي بيانات شخصية عنك، جميع الروابط خارجية.')">سياسة الخصوصية</a>
+                <a onclick="openModal('حقوق الملكية (DMCA)', 'جميع الحقوق محفوظة لأصحابها. إذا كنت مالك حقوق وتعتقد أن هناك انتهاكاً، يرجى التواصل معنا.')" style="grid-column: 1 / -1;">حقوق الملكية (DMCA)</a>
             </div>
 
             <div class="footer-copyright">
                 <p>تنويه: لا يخزن هذا الموقع أي ملفات على خادمه، جميع المحتويات مقدمة من جهات خارجية غير تابعة له.</p>
-                <p style="margin-top: 10px;">© 2024 Wit-Ting. جميع الحقوق محفوظة.</p>
+                <p style="margin-top: 10px;">© 2026 Wit-Ting. جميع الحقوق محفوظة.</p>
             </div>
         </footer>
     </section>
@@ -250,14 +282,12 @@
         </div>
         <div class="watch-details">
             <h1 class="watch-title" id="watchTitle">اسم الحلقة</h1>
-            
             <p style="font-size: 13px; color: #aaa; margin-bottom: 5px;">السيرفرات:</p>
             <div class="server-grid">
                 <button class="server-btn active">Mega</button>
                 <button class="server-btn">Drive</button>
                 <button class="server-btn">Videa</button>
             </div>
-
             <p style="font-size: 13px; color: #aaa; margin-top: 20px; margin-bottom: 5px;">الحلقات:</p>
             <div class="episodes-row" id="watchEpisodesRow"></div>
         </div>
@@ -279,44 +309,30 @@
         </div>
     </nav>
 
+    <!-- ================= النافذة المنبثقة (Modal) ================= -->
+    <div class="modal-overlay" id="infoModal" onclick="closeModalOnBg(event)">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+            <h2 class="modal-title" id="modalTitle">عنوان</h2>
+            <p class="modal-text" id="modalText">نص</p>
+        </div>
+    </div>
+
     <!-- ================= الجافاسكريبت ================= -->
     <script>
-        const database = [
-            {
-                id: "one-piece",
-                title: "One Piece",
-                type: "anime",
-                rating: "9.0",
-                poster: "https://images.unsplash.com/photo-1541562232579-512a21360020?q=80&w=600&auto=format&fit=crop",
-                backdrop: "https://images.unsplash.com/photo-1541562232579-512a21360020?q=80&w=1200&auto=format&fit=crop",
-                tags: ["أكشن", "مغامرات"],
-                synopsis: "مونكي دي لوفي يبحث عن الكنز الأسطوري (ون بيس) ليصبح ملك القراصنة. رحلة مليئة بالمغامرات.",
-                info: { studio: "Toei Animation", year: "1999", season: "خريف", episodes_count: "1000+", duration: "24 دقيقة" },
-                episodes: [
-                    { epNum: 1, title: "الحلقة 1", videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" },
-                    { epNum: 2, title: "الحلقة 2", videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" }
-                ]
-            },
-            {
-                id: "inception",
-                title: "Inception",
-                type: "movie",
-                rating: "9.1",
-                poster: "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=600&auto=format&fit=crop",
-                backdrop: "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=1200&auto=format&fit=crop",
-                tags: ["خيال علمي", "أكشن"],
-                synopsis: "لص محترف يسرق المعلومات من العقل الباطن للآخرين أثناء أحلامهم.",
-                info: { studio: "Warner Bros", year: "2010", season: "-", episodes_count: "1", duration: "148 دقيقة" },
-                episodes: [
-                    { epNum: 1, title: "الفيلم كامل", videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4" }
-                ]
-            }
-        ];
+        // ⚠️ هاد المتغير غادي يتعمر أوتوماتيكيا من ملف data.json
+        let database = [];
 
+        // ==========================================
+        // 1. نظام التنقل (Router)
+        // ==========================================
         const router = {
             go: function(page, id = null, epNum = null) {
                 document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
                 document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+                document.getElementById('globalBackBtn').style.display = 'none'; // إخفاء زر الرجوع
 
                 if (page === 'home' || page === 'anime' || page === 'movies') {
                     document.getElementById('view-home').classList.add('active');
@@ -327,11 +343,13 @@
                 else if (page === 'details' && id) {
                     this.renderDetails(id);
                     document.getElementById('view-details').classList.add('active');
+                    document.getElementById('globalBackBtn').style.display = 'flex'; // إظهار زر الرجوع
                     window.location.hash = `#details/${id}`;
                 }
                 else if (page === 'watch' && id && epNum) {
                     this.renderWatch(id, epNum);
                     document.getElementById('view-watch').classList.add('active');
+                    document.getElementById('globalBackBtn').style.display = 'flex'; // إظهار زر الرجوع
                     window.location.hash = `#watch/${id}/${epNum}`;
                     document.getElementById('bottomNav').classList.add('hidden');
                 }
@@ -423,11 +441,13 @@
             }
         };
 
+        // ==========================================
+        // 2. دوال مساعدة (Modal & Search)
+        // ==========================================
         function watchFirstEpisode() {
             const hash = window.location.hash.split('/')[1];
             const item = database.find(a => a.id === hash);
             if(item && item.episodes && item.episodes.length > 0) {
-                // هنا كان الخطأ وتم إصلاحه
                 router.go('watch', item.id, item.episodes[0].epNum);
             }
         }
@@ -447,9 +467,9 @@
             if(query.trim() === '') { results.innerHTML = ''; return; }
             
             const matches = database.filter(a => a.title.toLowerCase().includes(query.toLowerCase()));
-            if(matches.length ===                0) {
+            if(matches.length === 0) {
                 results.innerHTML = `<p style="color:#aaa; grid-column: 1/-1; text-align:center;">لا توجد نتائج</p>`;
- return;
+                return;
             }
             results.innerHTML = matches.map(item => `
                 <div class="card" onclick="toggleSearch(); router.go('details', '${item.id}')">
@@ -459,6 +479,24 @@
             `).join('');
         }
 
+        // دوال النوافذ المنبثقة
+        function openModal(title, text) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalText').innerText = text;
+            document.getElementById('infoModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('infoModal').classList.remove('active');
+        }
+
+        function closeModalOnBg(event) {
+            if(event.target.id === 'infoModal') closeModal();
+        }
+
+        // ==========================================
+        // 3. حركة القائمة السفلية والتشغيل الأولي
+        // ==========================================
         let lastScrollTop = 0;
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('bottomNav');
@@ -473,21 +511,33 @@
             lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
         }, { passive: true });
 
-        window.addEventListener('load', () => {
-            const hash = window.location.hash;
-            if(hash.startsWith('#details/')) {
-                router.go('details', hash.split('/')[1]);
-            } else if(hash.startsWith('#watch/')) {
-                const parts = hash.split('/');
-                router.go('watch', parts[1], parts[2]);
-            } else if(hash === '#anime') {
-                router.go('anime');
-            } else if(hash === '#movies') {
-                router.go('movies');
-            } else {
-                router.go('home');
+        // جلب البيانات من data.json وتشغيل الموقع
+        async function fetchDataAndStart() {
+            try {
+                const response = await fetch('data.json');
+                if (!response.ok) throw new Error('Network response was not ok');
+                database = await response.json();
+                
+                const hash = window.location.hash;
+                if(hash.startsWith('#details/')) {
+                    router.go('details', hash.split('/')[1]);
+                } else if(hash.startsWith('#watch/')) {
+                    const parts = hash.split('/');
+                    router.go('watch', parts[1], parts[2]);
+                } else if(hash === '#anime') {
+                    router.go('anime');
+                } else if(hash === '#movies') {
+                    router.go('movies');
+                } else {
+                    router.go('home');
+                }
+            } catch (error) {
+                console.error("Error loading data:", error);
+                document.getElementById('homeGrid').innerHTML = `<p style="color:red; grid-column:1/-1; text-align:center;">مشكل في تحميل البيانات. تأكد من وجود ملف data.json بجانب index.html.</p>`;
             }
-        });
+        }
+
+        window.addEventListener('load', fetchDataAndStart);
     </script>
 </body>
 </html>
