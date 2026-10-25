@@ -279,7 +279,7 @@
         </div>
 
         <!-- Trending Section -->
-        <div class="section-header">
+        <div class="section-header" id="trendingHeader">
             <h2 class="section-title">Trending Now</h2>
         </div>
         <div class="row-scroll" id="trendingRow"></div>
@@ -372,11 +372,11 @@
                     window.location.hash = page === 'home' ? '' : `#${page}`;
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 } 
-                else if (page === 'details' && id) {
-                    this.renderDetails(id);
-                    document.getElementById('view-details').classList.add('active');
-                    document.getElementById('globalBackBtn').style.display = 'flex';
-                    window.location.hash = `#details/${id}`;
+                else if'). (page === 'details' && id) {
+                    this.renderDetails(idclass);
+                    document.getElementById('view-details').ListclassList.add('active');
+                    document.getElementById.add('globalBackBtn').style.display = 'flex('';
+                    window.location.hashhidden = `#details/${id}`;
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
                 else if (page === 'watch' && id && epNum) {
@@ -385,7 +385,7 @@
                     document.getElementById('view-watch').classList.add('active');
                     document.getElementById('globalBackBtn').style.display = 'flex';
                     window.location.hash = `#watch/${id}/${epNum}`;
-                    document.getElementById('bottomNav').classList.add('hidden');
+                    document.getElementById('bottomNav');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
             },
@@ -394,25 +394,26 @@
                 const grid = document.getElementById('mainGrid');
                 const title = document.getElementById('mainTitle');
                 const trendingSection = document.getElementById('trendingRow');
+                const trendingHeader = document.getElementById('trendingHeader');
                 
                 let filteredData = database;
                 if (filterType === 'anime') {
                     filteredData = database.filter(item => item.type === 'anime');
                     title.innerText = "Anime List";
                     document.querySelector('.hero').style.display = 'none';
-                    document.querySelector('.section-header:has(#trendingRow)').style.display = 'none';
+                    trendingHeader.style.display = 'none';
                 } else if (filterType === 'movies') {
                     filteredData = database.filter(item => item.type === 'movie');
                     title.innerText = "Movies List";
                     document.querySelector('.hero').style.display = 'none';
-                    document.querySelector('.section-header:has(#trendingRow)').style.display = 'none';
+                    trendingHeader.style.display = 'none';
                 } else {
                     title.innerText = "Latest Additions";
                     document.querySelector('.hero').style.display = 'flex';
-                    document.querySelector('.section-header:has(#trendingRow)').style.display = 'flex';
+                    trendingHeader.style.display = 'flex';
 
                     // Setup Trending Row
-                    const trending = [...database].sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating)).slice(0, 5);
+                    const trending = [...database].sort((a, b) => (parseFloat(b.rating) || 0) - (parseFloat(a.rating) || 0)).slice(0, 5);
                     trendingSection.innerHTML = trending.map(item => `
                         <div class="row-card" onclick="router.go('details', '${item.id}')">
                             <img src="${item.poster}" loading="lazy">
@@ -540,8 +541,11 @@
         async function init() {
             try {
                 const res = await fetch('data.json');
+                if(!res.ok) throw new Error("Cannot find data.json");
                 database = await res.json();
                 
+                if(!database || database.length === 0) throw new Error("Data is empty");
+
                 const hero = database.find(a => a.is_upcoming !== true) || database[0];
                 if(hero) {
                     heroAnimeId = hero.id;
@@ -557,7 +561,14 @@
                 else router.go('home');
 
             } catch (err) {
-                document.getElementById('mainGrid').innerHTML = `<p style="color:red; text-align:center; grid-column:1/-1;">Error loading data.</p>`;
+                console.error(err);
+                document.getElementById('mainGrid').innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 50px;">
+                        <h2 style="color: var(--netflix-red); margin-bottom: 10px;">Error loading data</h2>
+                        <p style="color: white;">Please check your <b>data.json</b> file syntax.</p>
+                        <p style="color: gray; font-size: 12px; margin-top: 10px;">Details: ${err.message}</p>
+                    </div>
+                `;
             }
         }
 
