@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Wit-Ting | Streaming Platform</title>
+    <title>Wit-Ting | منصة المشاهدة</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&display=swap" rel="stylesheet">
     
     <style>
@@ -24,11 +24,11 @@
         svg { display: block; }
         ::-webkit-scrollbar { display: none; }
 
-        /* ================= Header ================= */
+        /* ================= Header & Lang Toggle ================= */
         .header {
             position: fixed; top: 0; left: 0; width: 100%; height: 60px;
             background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
-            display: flex; align-items: center; justify-content: space-between; padding: 0 20px;
+            display: flex; align-items: center; justify-content: space-between; padding: 0 15px;
             z-index: 1000; transition: all 0.3s;
         }
         .header.scrolled { 
@@ -45,18 +45,28 @@
             text-shadow: 2px 2px 0px #000, 3px 3px 0px var(--netflix-red);
         }
         
+        .header-actions { display: flex; align-items: center; gap: 10px; }
+        
+        .lang-toggle {
+            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+            color: white; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: bold;
+            cursor: pointer; backdrop-filter: blur(5px); transition: 0.2s;
+        }
+        .lang-toggle:hover { background: rgba(255,255,255,0.2); }
+
         .icon-btn { background: none; border: none; color: white; cursor: pointer; padding: 5px; }
         .icon-btn svg { width: 24px; height: 24px; fill: white; }
 
         /* ================= Back Button ================= */
         .back-btn {
-            position: fixed; top: 70px; left: 20px; z-index: 999;
+            position: fixed; top: 70px; right: 20px; z-index: 999;
             width: 45px; height: 45px; border-radius: 50%;
             background: var(--glass-bg); backdrop-filter: var(--glass-blur);
             border: 1px solid var(--glass-border); color: white;
             display: none; align-items: center; justify-content: center; cursor: pointer;
         }
         .back-btn svg { width: 24px; height: 24px; fill: currentColor; }
+        [dir="ltr"] .back-btn { left: 20px; right: auto; }
 
         /* ================= Views ================= */
         .view { display: none; animation: fadeIn 0.4s ease; }
@@ -67,7 +77,7 @@
         .hero {
             position: relative; width: 100%; height: 65vh;
             background-size: cover; background-position: center top;
-            display: flex; flex-direction: column; justify-content: flex-end; padding: 20px 20px 40px;
+            display: none; flex-direction: column; justify-content: flex-end; padding: 20px 20px 40px;
         }
         .hero::after {
             content: ''; position: absolute; inset: 0;
@@ -79,7 +89,6 @@
         .hero-btn {
             background: rgba(255, 255, 255, 0.15); 
             backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.4);
             color: var(--text-white); 
             padding: 14px 35px; border-radius: 50px; 
@@ -101,6 +110,7 @@
         .section-header {
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 15px; margin: 25px 0 15px;
+            display: none;
         }
         .section-title {
             font-size: 20px; font-weight: 800; color: #fff;
@@ -113,7 +123,7 @@
 
         /* Trending Row */
         .row-scroll {
-            display: flex; gap: 12px; overflow-x: auto; padding: 0 15px 15px;
+            display: none; gap: 12px; overflow-x: auto; padding: 0 15px 15px;
             scroll-snap-type: x mandatory;
         }
         .row-scroll::-webkit-scrollbar { display: none; }
@@ -134,7 +144,7 @@
         /* Latest Grid */
         .grid-container {
             display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-            gap: 15px; padding: 0 15px 40px;
+            gap: 15px; padding: 0 15px 40px; margin-top: 70px;
         }
         .card {
             border-radius: 12px; overflow: hidden; position: relative;
@@ -144,7 +154,7 @@
         .card:active { transform: scale(0.95); }
         .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; }
         .card-badge {
-            position: absolute; top: 5px; left: 5px; background: rgba(0,0,0,0.8);
+            position: absolute; top: 5px; right: 5px; background: rgba(0,0,0,0.8);
             backdrop-filter: blur(5px); padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: bold;
         }
 
@@ -236,13 +246,12 @@
         .search-box { display: flex; align-items: center; background: var(--glass-bg); border-radius: 12px; padding: 12px 20px; margin-top: 50px; border: 1px solid var(--glass-border); }
         .search-box input { flex: 1; background: none; border: none; color: white; font-size: 16px; outline: none; }
 
-        /* ================= Bottom Nav (iOS Glass) ================= */
+        /* ================= Bottom Nav ================= */
         .floating-nav {
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
             width: 92%; max-width: 400px; height: 65px;
             background: rgba(25, 25, 25, 0.7); 
             backdrop-filter: blur(25px) saturate(180%);
-            -webkit-backdrop-filter: blur(25px) saturate(180%);
             border: 1px solid rgba(255,255,255,0.15); border-radius: 35px;
             display: flex; justify-content: space-around; align-items: center;
             z-index: 1000; box-shadow: 0 10px 40px rgba(0,0,0,0.8);
@@ -265,15 +274,18 @@
 
     <header class="header" id="mainHeader">
         <div class="site-logo" onclick="router.go('home')">WIT-TING</div>
-        <button class="icon-btn" onclick="toggleSearch()">
-            <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-        </button>
+        <div class="header-actions">
+            <button class="lang-toggle" onclick="toggleLang()" id="langBtn">EN</button>
+            <button class="icon-btn" onclick="toggleSearch()">
+                <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            </button>
+        </div>
     </header>
 
     <div class="search-overlay" id="searchOverlay">
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Search for anime or movies..." oninput="performSearch(this.value)">
-            <button class="icon-btn" onclick="toggleSearch()" style="margin-left: 10px;">
+            <input type="text" id="searchInput" placeholder="ابحث عن أنمي أو فيلم..." data-en="Search for anime or movies..." oninput="performSearch(this.value)">
+            <button class="icon-btn" onclick="toggleSearch()" style="margin-right: 10px;">
                 <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
             </button>
         </div>
@@ -283,20 +295,20 @@
     <section id="view-home" class="view active">
         <div class="hero" id="heroBanner">
             <div class="hero-content">
-                <h1 class="hero-title" id="heroTitle">Loading...</h1>
+                <h1 class="hero-title" id="heroTitle">جاري التحميل...</h1>
                 <button class="hero-btn" id="heroBtn" onclick="watchHero()">
-                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> Watch Now
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> <span data-en="Watch Now">مشاهدة الآن</span>
                 </button>
             </div>
         </div>
 
         <div class="section-header" id="trendingHeader">
-            <h2 class="section-title">Trending Now</h2>
+            <h2 class="section-title" data-en="Trending Now">الأكثر رواجاً</h2>
         </div>
         <div class="row-scroll" id="trendingRow"></div>
 
-        <div class="section-header">
-            <h2 class="section-title" id="mainTitle">Latest Additions</h2>
+        <div class="section-header" id="latestHeader">
+            <h2 class="section-title" id="mainTitle" data-en="Latest Additions">أحدث الإضافات</h2>
         </div>
         <div class="grid-container" id="mainGrid"></div>
     </section>
@@ -314,7 +326,7 @@
             <p class="synopsis" id="dtSynopsis"></p>
             <div class="info-grid" id="dtInfo"></div>
             <button class="details-watch-btn" onclick="watchFirstEpisode()">
-                <svg viewBox="0 0 24 24" style="fill:white; width:20px; height:20px;"><path d="M8 5v14l11-7z"/></svg> Watch Now
+                <svg viewBox="0 0 24 24" style="fill:white; width:20px; height:20px;"><path d="M8 5v14l11-7z"/></svg> <span data-en="Watch Now">شاهد الآن</span>
             </button>
         </div>
     </section>
@@ -337,34 +349,35 @@
             
             <div class="disclaimer-box">
                 <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-                <div class="disclaimer-text">
-                    <b>Important Note:</b> Video playback may be delayed or buffered if the server is busy. For a better experience, we recommend:
-                    <br>• Use a stable <b>5G</b> or Wi-Fi network.
-                    <br>• Use a <b>VPN</b> if the site is blocked in your region.
-                    <br>• Close other apps consuming bandwidth.
+                <div class="disclaimer-text" data-en="<b>Important Note:</b> Video playback may be delayed or buffered if the server is busy. For a better experience, we recommend:<br>• Use a stable <b>5G</b> or Wi-Fi network.<br>• Use a <b>VPN</b> if the site is blocked in your region.<br>• Close other apps consuming bandwidth.">
+                    <b>تنويه هام:</b> قد يتأخر تشغيل الفيديو أو يتقطع في حال كان السيرفر مزدحماً. لتجربة أفضل، ننصحك بـ:
+                    <br>• استخدام شبكة <b>5G</b> أو Wi-Fi مستقر.
+                    <br>• تشغيل <b>VPN</b> إذا كان موقعك محظوراً.
+                    <br>• إغلاق التطبيقات الأخرى التي تستهلك الإنترنت.
                 </div>
             </div>
 
-            <div class="options-title">Quality:</div>
+            <div class="options-title" data-en="Quality:">الجودة:</div>
             <div class="btn-group" id="qualityGroup"></div>
 
-            <div class="options-title">Server:</div>
+            <div class="options-title" data-en="Server:">السيرفر:</div>
             <div class="btn-group" id="serverGroup"></div>
 
-            <div class="options-title" style="margin-top:30px;">Episodes:</div>
+            <div class="options-title" style="margin-top:30px;" data-en="Episodes:">الحلقات:</div>
             <div class="ep-list" id="episodesList"></div>
         </div>
     </section>
 
+    <!-- Bottom Navigation -->
     <nav class="floating-nav" id="bottomNav">
         <div class="nav-item active" data-tab="home" onclick="router.go('home')">
-            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg> Home
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg> <span data-en="Home">الرئيسية</span>
         </div>
         <div class="nav-item" data-tab="anime" onclick="router.go('anime')">
-            <svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/></svg> Anime
+            <svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/></svg> <span data-en="Anime">أنمي</span>
         </div>
         <div class="nav-item" data-tab="movies" onclick="router.go('movies')">
-            <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg> Movies
+            <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg> <span data-en="Movies">أفلام</span>
         </div>
     </nav>
 
@@ -372,12 +385,42 @@
         let database = [];
         let currentState = { animeId: null, epNum: null, serverIdx: 0, qualityIdx: 0 };
         let heroAnimeId = null;
+        let isArabic = true; // Arabic is default
+
+        // Language Toggle Functionality
+        function toggleLang() {
+            isArabic = !isArabic;
+            const htmlEl = document.documentElement;
+            const langBtn = document.getElementById('langBtn');
+            
+            if (isArabic) {
+                htmlEl.setAttribute('lang', 'ar');
+                htmlEl.setAttribute('dir', 'rtl');
+                langBtn.innerText = 'EN';
+            } else {
+                htmlEl.setAttribute('lang', 'en');
+                htmlEl.setAttribute('dir', 'ltr');
+                langBtn.innerText = 'AR';
+            }
+
+            // Update static texts
+            document.querySelectorAll('[data-en]').forEach(el => {
+                if (!el.dataset.ar) el.dataset.ar = el.innerHTML; // Save original Arabic
+                el.innerHTML = isArabic ? el.dataset.ar : el.dataset.en;
+            });
+
+            // Re-render dynamic content if on those pages
+            const activeView = document.querySelector('.view.active').id;
+            if(activeView === 'view-home') router.renderHome(document.querySelector('.nav-item.active').dataset.tab);
+            else if(activeView === 'view-watch' && currentState.animeId) router.renderWatch();
+        }
 
         const router = {
             go: function(page, id = null, epNum = null) {
                 document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
                 document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
                 document.getElementById('globalBackBtn').style.display = 'none';
+                document.getElementById('videoPlayer').pause(); // Stop video when leaving
 
                 if (page === 'home' || page === 'anime' || page === 'movies') {
                     document.getElementById('view-home').classList.add('active');
@@ -409,22 +452,33 @@
                 const title = document.getElementById('mainTitle');
                 const trendingSection = document.getElementById('trendingRow');
                 const trendingHeader = document.getElementById('trendingHeader');
+                const hero = document.getElementById('heroBanner');
+                const latestHeader = document.getElementById('latestHeader');
                 
                 let filteredData = database;
                 if (filterType === 'anime') {
                     filteredData = database.filter(item => item.type === 'anime');
-                    title.innerText = "Anime List";
-                    document.querySelector('.hero').style.display = 'none';
+                    title.innerText = isArabic ? "قائمة الأنمي" : "Anime List";
+                    hero.style.display = 'none';
                     trendingHeader.style.display = 'none';
+                    trendingSection.style.display = 'none';
+                    latestHeader.style.display = 'flex';
+                    grid.style.marginTop = '70px';
                 } else if (filterType === 'movies') {
                     filteredData = database.filter(item => item.type === 'movie');
-                    title.innerText = "Movies List";
-                    document.querySelector('.hero').style.display = 'none';
+                    title.innerText = isArabic ? "قائمة الأفلام" : "Movies List";
+                    hero.style.display = 'none';
                     trendingHeader.style.display = 'none';
+                    trendingSection.style.display = 'none';
+                    latestHeader.style.display = 'flex';
+                    grid.style.marginTop = '70px';
                 } else {
-                    title.innerText = "Latest Additions";
-                    document.querySelector('.hero').style.display = 'flex';
+                    title.innerText = isArabic ? "أحدث الإضافات" : "Latest Additions";
+                    hero.style.display = 'flex';
                     trendingHeader.style.display = 'flex';
+                    trendingSection.style.display = 'flex';
+                    latestHeader.style.display = 'flex';
+                    grid.style.marginTop = '0';
 
                     const trending = [...database].sort((a, b) => (parseFloat(b.rating) || 0) - (parseFloat(a.rating) || 0)).slice(0, 5);
                     trendingSection.innerHTML = trending.map(item => `
@@ -439,8 +493,8 @@
                     grid.innerHTML = `
                         <div class="empty-state">
                             <svg viewBox="0 0 24 24"><path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
-                            <h3 style="margin-bottom: 5px; color:white;">No items found</h3>
-                            <p style="font-size: 12px;">No content has been added here yet.</p>
+                            <h3 style="margin-bottom: 5px; color:white;">${isArabic ? 'لا توجد عناصر' : 'No items found'}</h3>
+                            <p style="font-size: 12px;">${isArabic ? 'لم تتم إضافة أي محتوى هنا بعد.' : 'No content has been added here yet.'}</p>
                         </div>
                     `;
                     return;
@@ -464,11 +518,16 @@
                 document.getElementById('dtSynopsis').innerText = item.synopsis;
                 document.getElementById('dtTags').innerHTML = item.tags.map(t => `<span class="tag">${t}</span>`).join('');
                 
+                const studioTxt = isArabic ? 'الاستوديو' : 'Studio';
+                const yearTxt = isArabic ? 'السنة' : 'Year';
+                const epTxt = isArabic ? 'الحلقات' : 'Episodes';
+                const durTxt = isArabic ? 'المدة' : 'Duration';
+
                 document.getElementById('dtInfo').innerHTML = `
-                    <div>Studio: <span>${item.info.studio || 'Unknown'}</span></div>
-                    <div>Year: <span>${item.info.year || 'Unknown'}</span></div>
-                    <div>Episodes: <span>${item.info.episodes_count || '1'}</span></div>
-                    <div>Duration: <span>${item.info.duration || 'Unknown'}</span></div>
+                    <div>${studioTxt}: <span>${item.info.studio || 'Unknown'}</span></div>
+                    <div>${yearTxt}: <span>${item.info.year || 'Unknown'}</span></div>
+                    <div>${epTxt}: <span>${item.info.episodes_count || '1'}</span></div>
+                    <div>${durTxt}: <span>${item.info.duration || 'Unknown'}</span></div>
                 `;
             },
 
@@ -480,14 +539,17 @@
 
                 document.getElementById('watchBackdrop').src = item.backdrop || item.poster;
                 document.getElementById('watchTitle').innerText = `${item.title}`;
-                document.getElementById('watchSubtitle').innerText = `Episode ${ep.epNum} - ${ep.title}`;
                 
-                // Next Episode Button Logic
+                const epTxt = isArabic ? 'الحلقة' : 'Episode';
+                document.getElementById('watchSubtitle').innerText = `${epTxt} ${ep.epNum} - ${ep.title}`;
+                
+                // Next Episode Button
                 const nextEpContainer = document.getElementById('nextEpContainer');
                 const currentEpIndex = item.episodes.findIndex(e => e.epNum === currentState.epNum);
                 if (currentEpIndex !== -1 && currentEpIndex < item.episodes.length - 1) {
                     const nextEpNum = item.episodes[currentEpIndex + 1].epNum;
-                    nextEpContainer.innerHTML = `<button class="next-ep-btn" onclick="router.go('watch', '${item.id}', ${nextEpNum})">Next <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>`;
+                    const nextTxt = isArabic ? 'التالي' : 'Next';
+                    nextEpContainer.innerHTML = `<button class="next-ep-btn" onclick="router.go('watch', '${item.id}', ${nextEpNum})">${nextTxt} <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>`;
                 } else {
                     nextEpContainer.innerHTML = '';
                 }
@@ -509,7 +571,7 @@
                     video.src = currentServer.qualities[currentState.qualityIdx].url;
                     video.load();
                 } else {
-                    serverGroup.innerHTML = '<span style="color:gray; font-size:12px;">No servers available</span>';
+                    serverGroup.innerHTML = `<span style="color:gray; font-size:12px;">${isArabic ? 'لا يوجد سيرفرات' : 'No servers available'}</span>`;
                     qualityGroup.innerHTML = '';
                     document.getElementById('videoPlayer').src = "";
                 }
@@ -517,7 +579,7 @@
                 document.getElementById('episodesList').innerHTML = item.episodes.map(e => `
                     <div class="ep-card ${e.epNum === currentState.epNum ? 'active' : ''}" onclick="router.go('watch', '${item.id}', ${e.epNum})">
                         <img src="${e.thumbnail || item.poster}">
-                        <div>Episode ${e.epNum}</div>
+                        <div>${epTxt} ${e.epNum}</div>
                     </div>
                 `).join('');
             }
@@ -576,6 +638,12 @@
                     document.getElementById('heroTitle').innerText = hero.title;
                 }
 
+                // Setup defaults texts
+                document.querySelectorAll('[data-en]').forEach(el => {
+                    if (!el.dataset.ar) el.dataset.ar = el.innerHTML;
+                    el.innerHTML = isArabic ? el.dataset.ar : el.dataset.en;
+                });
+
                 const hash = window.location.hash;
                 if(hash.startsWith('#details/')) router.go('details', hash.split('/')[1]);
                 else if(hash.startsWith('#watch/')) { const p = hash.split('/'); router.go('watch', p[1], p[2]); }
@@ -589,7 +657,6 @@
                     <div style="grid-column: 1/-1; text-align: center; padding: 50px;">
                         <h2 style="color: var(--netflix-red); margin-bottom: 10px;">Error loading data</h2>
                         <p style="color: white;">Please check your <b>data.json</b> file syntax.</p>
-                        <p style="color: gray; font-size: 12px; margin-top: 10px;">Details: ${err.message}</p>
                     </div>
                 `;
             }
