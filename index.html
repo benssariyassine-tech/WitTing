@@ -19,7 +19,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background-color: var(--bg); color: var(--text-main); padding-bottom: 100px; overflow-x: hidden; }
+        body { background-color: var(--bg); color: var(--text-main); padding-bottom: 80px; overflow-x: hidden; }
         a { text-decoration: none; color: inherit; }
         svg { display: block; }
 
@@ -35,9 +35,6 @@
         
         .site-logo { display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 20px; cursor: pointer;}
         .site-logo svg { width: 32px; height: 32px; fill: var(--primary); }
-
-        .team-badge { display: flex; align-items: center; gap: 5px; background: var(--surface); padding: 4px 10px; border-radius: 8px; border: 1px solid #333; font-size: 12px; font-weight: 700; }
-        .team-badge svg { width: 16px; height: 16px; fill: #fff; }
 
         .icon-btn { background: none; border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 5px;}
         .icon-btn svg { width: 24px; height: 24px; fill: white; }
@@ -62,9 +59,9 @@
         .section-title { font-size: 20px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
         .section-title::before { content: ''; display: block; width: 4px; height: 20px; background: var(--primary); border-radius: 4px; }
 
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 15px; padding: 0 20px; margin-bottom: 30px; }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: ('15px; padding: 0 20px; margin-bottomwatch',: 30 itempx; }
 
-        .card { cursor: pointer; border-radius: 10px; overflow: hidden; background: var(--surface); transition: transform 0.3s; position: relative; }
+        .card { cursor: pointer; border-radius.id: 10px; overflow: hidden; background,: var(--surface); transition: transform 0.3s; position: relative; }
         .card:active { transform: scale(0.95); }
         .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; }
         
@@ -73,7 +70,7 @@
 
         .card-info { padding: 10px; text-align: center; }
         .card-title { font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .card-meta { font-size: 11px; color: var(--text-muted); margin-top: 3px; display: flex; justify-content: center; gap: 5px;}
+        .card-meta { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
 
         .empty-state { text-align: center; padding: 50px 20px; color: var(--text-muted); grid-column: 1/-1; }
         .empty-state svg { width: 60px; height: 60px; fill: #333; margin: 0 auto 15px; }
@@ -114,6 +111,32 @@
         .ep-num { flex: 0 0 45px; height: 45px; display: flex; align-items: center; justify-content: center; background: var(--surface); border: 1px solid #333; border-radius: 8px; font-weight: bold; cursor: pointer; }
         .ep-num.active { background: white; color: black; border-color: white; }
 
+        /* ================= الفوتر (Footer) ================= */
+        .site-footer {
+            background: var(--surface);
+            padding: 40px 20px 80px; /* مساحة للقائمة السفلية */
+            border-top: 1px solid #222;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .footer-logos {
+            display: flex; justify-content: center; align-items: center; gap: 30px; margin-bottom: 30px;
+        }
+
+        .footer-logo-item { display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0.7; }
+        .footer-logo-item svg { width: 40px; height: 40px; }
+        .footer-logo-item span { font-size: 12px; font-weight: bold; }
+
+        .footer-links {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 400px; margin: 0 auto 30px;
+        }
+        
+        .footer-links a { color: var(--text-muted); font-size: 13px; transition: color 0.3s; }
+        .footer-links a:hover { color: white; }
+
+        .footer-copyright { border-top: 1px solid #222; padding-top: 20px; color: #555; font-size: 11px; line-height: 1.6; }
+
         /* ================= القائمة السفلية العائمة ================= */
         .floating-nav {
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
@@ -142,21 +165,12 @@
             <div class="site-logo" onclick="router.go('home')">
                 <svg viewBox="0 0 24 24"><path d="M3 3h4l5 14 5-14h4l-7 18h-4L3 3z"/></svg>
             </div>
-            <!-- شعار iStore Team -->
-            <div class="team-badge">
-                <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                iStore
-            </div>
         </div>
         
         <div class="header-left">
             <button class="icon-btn" onclick="toggleSearch()">
                 <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
             </button>
-            <!-- شعار Github كمساعد -->
-            <a href="https://github.com/benssariyassine-tech" target="_blank" class="icon-btn">
-                <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
-            </a>
         </div>
     </header>
 
@@ -165,7 +179,7 @@
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="ابحث عن أنمي أو فيلم..." oninput="performSearch(this.value)">
             <button class="icon-btn" onclick="toggleSearch()" style="margin-right: 10px;">
-                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M19 item 6.41L17.59 5 12 10..59 6.41 ep5 5 6.41isodes 10.59 12 5 17.59[ 6.41 19 12 13.41 017.59 19 19 17.59 13.41 12z"/></svg>
             </button>
         </div>
         <div class="grid-container" id="searchResults" style="margin-top: 20px;"></div>
@@ -179,6 +193,35 @@
         <div class="grid-container" id="homeGrid">
             <!-- سيتم ملؤها بالجافاسكريبت -->
         </div>
+
+        <!-- ================= الفوتر (Footer) ================= -->
+        <footer class="site-footer">
+            <div class="footer-logos">
+                <!-- شعار iStore -->
+                <div class="footer-logo-item">
+                    <svg viewBox="0 0 24 24" fill="#4db8b8"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/><circle cx="4" cy="12" r="2" fill="#4db8b8"/></svg>
+                    <span>iStore Team</span>
+                </div>
+                <!-- شعار GitHub -->
+                <div class="footer-logo-item">
+                    <svg viewBox="0 0 24 24" fill="white"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                    <span>GitHub</span>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <a href="#">شروط الاستخدام</a>
+                <a href="#">من نحن</a>
+                <a href="#">اتصل بالدعم</a>
+                <a href="#">سياسة الخصوصية</a>
+                <a href="#" style="grid-column: 1 / -1;">حقوق الملكية (DMCA)</a>
+            </div>
+
+            <div class="footer-copyright">
+                <p>تنويه: لا يخزن هذا الموقع أي ملفات على خادمه، جميع المحتويات مقدمة من جهات خارجية غير تابعة له.</p>
+                <p style="margin-top: 10px;">© 2024 Wit-Ting. جميع الحقوق محفوظة.</p>
+            </div>
+        </footer>
     </section>
 
     <!-- ================= صفحة التفاصيل ================= -->
@@ -242,33 +285,38 @@
     <!-- ================= العقل المدبر (الجافاسكريبت) ================= -->
     <script>
         // ==========================================
-        // ⚠️ هنا تبدا الخدمة الحقيقية ديالك ⚠️
-        // هذا هو القالب. انسخ من { حتى }, وعمره بالمعلومات الحقيقية.
+        // ⚠️ زدت لك بيانات تجريبية باش تشوف الأزرار تخدم. ⚠️
         // ==========================================
         const database = [
-            /* قالب لأنمي (احذف هذا وابدأ بكتابة الحقيقي):
             {
                 id: "one-piece",
                 title: "One Piece",
-                type: "anime", // اكتب "anime" أو "movie"
+                type: "anime", // كلمة anime هي اللي كتخلي الأنمي يبان في زر الأنمي
                 rating: "9.0",
-                poster: "رابط_صورة_الغلاف_هنا (مثلا من GitHub)",
-                backdrop: "رابط_صورة_الخلفية_العريضة_هنا",
+                poster: "https://images.unsplash.com/photo-1541562232579-512a21360020?q=80&w=600&auto=format&fit=crop",
+                backdrop: "https://images.unsplash.com/photo-1541562232579-512a21360020?q=80&w=1200&auto=format&fit=crop",
                 tags: ["أكشن", "مغامرات"],
-                synopsis: "هنا تكتب قصة الأنمي أو الفيلم...",
-                info: {
-                    studio: "Toei Animation",
-                    year: "1999",
-                    season: "خريف",
-                    episodes_count: "1000+",
-                    duration: "24 دقيقة"
-                },
+                synopsis: "مونكي دي لوفي يبحث عن الكنز الأسطوري (ون بيس) ليصبح ملك القراصنة. رحلة مليئة بالمغامرات.",
+                info: { studio: "Toei Animation", year: "1999", season: "خريف", episodes_count: "1000+", duration: "24 دقيقة" },
                 episodes: [
-                    { epNum: 1, title: "الحلقة 1: أنا لوفي", videoUrl: "رابط_الفيديو_المباشر_mp4_هنا" },
-                    { epNum: 2, title: "الحلقة 2: صائد القراصنة", videoUrl: "رابط_الفيديو_الثاني_هنا" }
+                    { epNum: 1, title: "الحلقة 1", videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" },
+                    { epNum: 2, title: "الحلقة 2", videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" }
+                ]
+            },
+            {
+                id: "inception",
+                title: "Inception",
+                type: "movie", // كلمة movie هي اللي كتخلي الفيلم يبان في زر الأفلام
+                rating: "9.1",
+                poster: "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=600&auto=format&fit=crop",
+                backdrop: "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=1200&auto=format&fit=crop",
+                tags: ["خيال علمي", "أكشن"],
+                synopsis: "لص محترف يسرق المعلومات من العقل الباطن للآخرين أثناء أحلامهم.",
+                info: { studio: "Warner Bros", year: "2010", season: "-", episodes_count: "1", duration: "148 دقيقة" },
+                episodes: [
+                    { epNum: 1, title: "الفيلم كامل", videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4" }
                 ]
             }
-            */
         ];
 
         // ==========================================
@@ -294,14 +342,11 @@
                     this.renderWatch(id, epNum);
                     document.getElementById('view-watch').classList.add('active');
                     window.location.hash = `#watch/${id}/${epNum}`;
-                    // إخفاء القائمة السفلية في وضع المشاهدة لإعطاء مساحة
                     document.getElementById('bottomNav').classList.add('hidden');
                 }
-                
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             },
 
-            // 2. دالة عرض الصفحة الرئيسية (مع الفلترة)
             renderHome: function(filterType) {
                 const grid = document.getElementById('homeGrid');
                 const title = document.getElementById('homeTitle');
@@ -318,13 +363,7 @@
                 }
 
                 if (filteredData.length === 0) {
-                    grid.innerHTML = `
-                        <div class="empty-state">
-                            <svg viewBox="0 0 24 24"><path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
-                            <p>القائمة فارغة حالياً.</p>
-                            <p style="font-size: 12px; margin-top: 5px;">اذهب إلى كود index.html واملأ مصفوفة database</p>
-                        </div>
-                    `;
+                    grid.innerHTML = `<div class="empty-state"><p>لا توجد عناصر مضافة حالياً.</p></div>`;
                     return;
                 }
 
@@ -343,7 +382,6 @@
                 `).join('');
             },
 
-            // 3. دالة عرض صفحة التفاصيل
             renderDetails: function(id) {
                 const item = database.find(a => a.id === id);
                 if(!item) return;
@@ -356,13 +394,12 @@
                 document.getElementById('dtBadges').innerHTML = `
                     <span class="badge" style="background:var(--primary); color:white;">${item.rating} ★</span>
                     <span class="badge">${item.type === 'anime' ? 'مسلسل' : 'فيلم'}</span>
-                    ${item.tags.map(t => `<span class="badge">${t.toLowerCase}</span>`).join('')}
+                    ${item.tags.map(t => `<span class="badge">${t}</span>`).join('')}
                 `;
 
-               ()));
- let infoHTML = '';
+                let infoHTML = '';
                 if(item.info) {
-                               if(item.info.studio) infoHTML += `<tr>< iftd>الاستوديو</td><td>(m${item.info.studio}</td></tr>`;
+                    if(item.info.studio) infoHTML += `<tr><td>الاستوديو</td><td>${item.info.studio}</td></tr>`;
                     if(item.info.year) infoHTML += `<tr><td>السنة</td><td>${item.info.year}</td></tr>`;
                     if(item.info.season) infoHTML += `<tr><td>الموسم</td><td>${item.info.season}</td></tr>`;
                     if(item.info.episodes_count) infoHTML += `<tr><td>عدد الحلقات</td><td>${item.info.episodes_count}</td></tr>`;
@@ -370,16 +407,10 @@
                 }
                 document.getElementById('dtInfoTable').innerHTML = infoHTML;
                 
-                // إخفاء زر المشاهدة إذا لم يكن هناك حلقات
                 const watchBtn = document.querySelector('.watch-btn');
-                if(item.episodes && item.episodes.length > 0) {
-                    watchBtn.style.display = 'flex';
-                } else {
-                    watchBtn.style.display = 'none';
-                }
+                watchBtn.style.display = (item.episodes && item.episodes.length > 0) ? 'flex' : 'none';
             },
 
-            // 4. دالة عرض صفحة المشاهدة
             renderWatch: function(id, epNum) {
                 const item = database.find(a => a.id === id);
                 if(!item) return;
@@ -401,12 +432,11 @@
             }
         };
 
-        // دوال مساعدة
         function watchFirstEpisode() {
-            const hash = window.location.hash.split('/')[1]; // details/id
+            const hash = window.location.hash.split('/')[1];
             const item = database.find(a => a.id === hash);
             if(item && item.episodes && item.episodes.length > 0) {
-                router.go('watch', item.id, item.episodes[0].epNum);
+                router.go].epNum);
             }
         }
 
@@ -424,7 +454,8 @@
             const results = document.getElementById('searchResults');
             if(query.trim() === '') { results.innerHTML = ''; return; }
             
-            const matches = database.filter(a => a.title.toLowerCase().includes(queryatches.length === 0) {
+            const matches = database.filter(a => a.title.toLowerCase().includes(query.toLowerCase()));
+            if(matches.length === 0) {
                 results.innerHTML = `<p style="color:#aaa; grid-column: 1/-1; text-align:center;">لا توجد نتائج</p>`;
                 return;
             }
@@ -436,7 +467,6 @@
             `).join('');
         }
 
-        // إخفاء القائمة السفلية عند النزول
         let lastScrollTop = 0;
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('bottomNav');
@@ -451,7 +481,6 @@
             lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
         }, { passive: true });
 
-        // التشغيل الأولي
         window.addEventListener('load', () => {
             const hash = window.location.hash;
             if(hash.startsWith('#details/')) {
