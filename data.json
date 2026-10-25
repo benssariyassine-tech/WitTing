@@ -28,6 +28,11 @@
                             {
                                 "quality": "SD",
                                 "url": "https://archive.org/download/witanime.com-k-8-g-2-s-ep-01-sd/%5BWitanime.com%5D%20K8G2S%20EP%2001%20SD.mp4"
+                                "qualities": [
+    { "quality": "SD", "url": "رابط_الفيديو_العادي" },
+    { "quality": "HD", "url": "رابط_فيديو_HD_الخاص_بالمشتركين" },
+    { "quality": "Full HD", "url": "رابط_فيديو_FHD_الخاص_بالمشتركين" }
+]
                             }
                         ]
                     }
