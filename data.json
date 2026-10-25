@@ -1,29 +1,29 @@
 [
     {
-        "id": "kaiju-no-8-season-2",
-        "title": "Kaiju No. 8 - الموسم الثاني",
+        "id": "kaiju-no-8",
+        "title": "Kaiju No. 8 S2مترجمة",
         "type": "anime",
         "is_upcoming": false,
         "rating": "8.5",
         "poster": "https://a.storyblok.com/f/178900/750x1060/dcece0cdde/kaiju-no-8-season-2-key-visual.jpg",
         "backdrop": "https://a.storyblok.com/f/178900/750x1060/dcece0cdde/kaiju-no-8-season-2-key-visual.jpg",
-        "tags": ["أكشن", "خيال علمي", "شونين"],
-        "synopsis": "في عالم تتعرض فيه اليابان لهجمات الوحوش (كايجو)، يعمل كافكا هيبينو في تنظيف بقايا الوحوش. في هذا الموسم، تتطور الأحداث وتزداد المواجهات ضراوة.",
+        "tags": ["Action", "Sci-Fi", "Shounen"],
+        "synopsis": "In a world where Japan faces attacks from monsters...",
         "info": {
             "studio": "Production I.G",
             "year": "2025",
-            "season": "صيف",
+            "season": "Spring",
             "episodes_count": "11",
-            "duration": "24 دقيقة"
+            "duration": "24 min"
         },
         "episodes": [
             {
                 "epNum": 1,
-                "title": " سلاح الكايجو ",
+                "title": "The Monster Appears",
                 "thumbnail": "https://a.storyblok.com/f/178900/750x1060/dcece0cdde/kaiju-no-8-season-2-key-visual.jpg",
                 "servers": [
                     {
-                        "name": "سيرفر 1 (Archive)",
+                        "name": "Server 1",
                         "qualities": [
                             {
                                 "quality": "SD",
