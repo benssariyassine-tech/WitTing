@@ -24,7 +24,7 @@
         svg { display: block; }
         ::-webkit-scrollbar { display: none; }
 
-        /* ================= Header & Premium Logo ================= */
+        /* Header */
         .header { position: fixed; top: 0; left: 0; width: 100%; height: 65px; background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%); display: flex; align-items: center; justify-content: space-between; padding: 0 15px; z-index: 1000; transition: all 0.3s; }
         .header.scrolled { background: var(--glass-bg); backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-border); }
         
@@ -44,18 +44,18 @@
         .icon-btn { background: none; border: none; color: white; cursor: pointer; padding: 5px; }
         .icon-btn svg { width: 24px; height: 24px; fill: white; }
 
-        /* ================= Back Button ================= */
+        /* Back Button */
         .back-btn { position: fixed; top: 75px; right: 20px; z-index: 999; width: 45px; height: 45px; border-radius: 50%; background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); color: white; display: none; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; }
         .back-btn:active { transform: scale(0.9); }
         .back-btn svg { width: 24px; height: 24px; fill: currentColor; }
         [dir="ltr"] .back-btn { left: 20px; right: auto; }
 
-        /* ================= Views ================= */
+        /* Views */
         .view { display: none; animation: fadeIn 0.4s ease; flex: 1; }
         .view.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* ================= Home ================= */
+        /* Home */
         .hero { position: relative; width: 100%; height: 70vh; background-size: cover; background-position: center top; display: none; flex-direction: column; justify-content: flex-end; padding: 20px 20px 40px; }
         .hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, var(--bg-darker) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.8) 100%); }
         .hero-content { position: relative; z-index: 2; text-align: center; }
@@ -92,7 +92,7 @@
         /* Empty State */
         .empty-state { grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; color: var(--text-gray); text-align: center; }
 
-        /* ================= Details ================= */
+        /* Details */
         .details-bg { width: 100%; height: 50vh; object-fit: cover; position: absolute; top: 0; left: 0; z-index: -1; mask-image: linear-gradient(to bottom, black 40%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%); }
         .details-content { padding: 35vh 20px 100px; }
         .details-header { display: flex; gap: 15px; margin-bottom: 20px; align-items: flex-end;}
@@ -108,7 +108,7 @@
         .details-watch-btn { width: 100%; justify-content: center; background: var(--netflix-red); color: white; border: none; border-radius: 12px; padding: 16px; font-size: 16px; font-weight: 900; display: flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 6px 20px rgba(229, 9, 20, 0.4); transition: 0.3s; }
         .details-watch-btn:hover { background: #b80710; transform: scale(1.02); }
 
-        /* ================= Watch ================= */
+        /* Watch */
         .watch-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; object-fit: cover; filter: blur(40px) brightness(0.15); z-index: -1; }
         .video-wrapper { width: 100%; aspect-ratio: 16/9; background: #000; margin-top: 65px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
         .video-wrapper video { width: 100%; height: 100%; }
@@ -130,14 +130,12 @@
         .options-title { font-size: 15px; font-weight: bold; color: var(--text-gray); margin-bottom: 12px; margin-top: 25px;}
         .btn-group { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 15px; align-items: center; }
         
-        /* Quality Buttons */
         .opt-btn { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 10px 22px; border-radius: 10px; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: 0.2s; }
         .opt-btn:hover { background: rgba(255,255,255,0.15); }
         .opt-btn.active { background: var(--netflix-red); border-color: var(--netflix-red); font-weight: bold; box-shadow: 0 0 15px rgba(229, 9, 20, 0.4); }
         .opt-btn.locked { background: rgba(251, 191, 36, 0.1); border-color: rgba(251, 191, 36, 0.3); color: var(--gold); }
         .lock-icon { width: 16px; height: 16px; fill: var(--gold); }
 
-        /* Report Button */
         .report-btn { background: rgba(229, 9, 20, 0.15); border: 1px solid var(--netflix-red); color: white; padding: 10px 18px; border-radius: 10px; font-size: 13px; font-weight: bold; display: inline-flex; align-items: center; gap: 5px; cursor: pointer; margin-right: auto; transition: 0.3s; }
         .report-btn:hover { background: rgba(229, 9, 20, 0.3); }
         [dir="ltr"] .report-btn { margin-right: 0; margin-left: auto; }
@@ -172,7 +170,7 @@
         .nav-item.active { color: var(--text-white); }
         .nav-item.active svg { filter: drop-shadow(0 0 8px rgba(255,255,255,0.4)); }
 
-        /* VIP Modal (Premium Design) */
+        /* VIP Modal */
         .vip-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(15px); z-index: 3000; display: none; align-items: center; justify-content: center; padding: 20px; }
         .vip-modal-overlay.active { display: flex; }
         .vip-modal { background: linear-gradient(145deg, #151515, #050505); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 24px; width: 100%; max-width: 400px; padding: 35px 25px; text-align: center; position: relative; box-shadow: 0 25px 60px rgba(0,0,0,0.9), 0 0 30px rgba(251, 191, 36, 0.1) inset; }
@@ -186,9 +184,9 @@
 
         .pricing-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 18px 20px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.3s; }
         .pricing-card:hover { background: rgba(251, 191, 36, 0.08); border-color: rgba(251, 191, 36, 0.5); transform: scale(1.02); }
-        .;price-left { text-align: right; width }
-        .price-title { font-size:: 18px; font-weight: 800 ; color: white; }
-        .100price-sub { font-size: %;13px; color: #aaa; margin-top: 3px; }
+        .price-left { text-align: right; }
+        .price-title { font-size: 18px; font-weight: 800; color: white; }
+        .price-sub { font-size: 13px; color: #aaa; margin-top: 3px; }
         .price-right { font-size: 24px; font-weight: 900; color: var(--gold); }
 
         .flexy-info { background: rgba(0,0,0,0.5); padding: 15px; border-radius: 12px; font-size: 13px; color: #ccc; margin-bottom: 25px; border: 1px dashed #444; line-height: 1.8; }
@@ -200,7 +198,7 @@
         /* Info Modal */
         .info-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 4000; display: none; align-items: center; justify-content: center; padding: 20px; }
         .info-modal-overlay.active { display: flex; }
-        .info-modal { background: var(--bg-black); border: 1px solid var(--glass-border); border-radius: 16px max-width: 400px; padding: 30px; position: relative; }
+        .info-modal { background: var(--bg-black); border: 1px solid var(--glass-border); border-radius: 16px; max-width: 400px; padding: 30px; position: relative; }
         .info-close { position: absolute; top: 15px; right: 15px; background: none; border: none; color: #aaa; cursor: pointer; }
         .info-title { font-size: 20px; font-weight: 900; margin-bottom: 15px; color: var(--netflix-red); }
         .info-text { color: #ccc; font-size: 14px; line-height: 1.8; }
@@ -213,7 +211,6 @@
     </button>
 
     <header class="header" id="mainHeader">
-        <!-- شعار احترافي جديد -->
         <div class="site-logo" onclick="router.go('home')">
             <div class="logo-icon">
                 <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -236,7 +233,7 @@
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="ابحث عن أنمي أو فيلم..." data-en="Search for anime or movies..." oninput="performSearch(this.value)">
             <button class="icon-btn" onclick="toggleSearch()" style="margin-right: 10px;">
-                <svg viewBox="0 0 24 24"><path d="="M19 6.41L17.59 5 12v 10.59 6.41 5 5ip 6.41 10.59 12 5Modal 17.59 6.41 19 12" 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
             </button>
         </div>
         <div class="grid-container" id="searchResults" style="margin-top: 20px;"></div>
@@ -253,7 +250,6 @@
             </div>
         </div>
 
-        <!-- ميزة أكمل المشاهدة (تظهر فقط إذا كان هناك سجل) -->
         <div class="section-header" id="historyHeader" style="display: none;">
             <h2 class="section-title" data-en="Continue Watching">أكمل المشاهدة</h2>
         </div>
@@ -268,7 +264,6 @@
             <h2 class="section-title" id="mainTitle" data-en="Latest Additions">أحدث الإضافات</h2>
         </div>
         <div class="grid-container" id="mainGrid">
-            <!-- Skeleton Loader -->
             <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
         </div>
     </section>
@@ -328,7 +323,7 @@
     </section>
 
     <!-- VIP Modal -->
-    <div class="vip-modal-overlay" id onclick="closeVipModalOnBg(event)">
+    <div class="vip-modal-overlay" id="vipModal" onclick="closeVipModalOnBg(event)">
         <div class="vip-modal">
             <button class="vip-close" onclick="closeVipModal()">✕</button>
             <div class="vip-icon">
@@ -396,7 +391,7 @@
         </div>
     </nav>
 
-    <!-- Info Modal (Privacy / DMCA) -->
+    <!-- Info Modal -->
     <div class="info-modal-overlay" id="infoModal" onclick="closeInfoModalOnBg(event)">
         <div class="info-modal">
             <button class="info-close" onclick="closeInfoModal()">
@@ -414,12 +409,11 @@
         let isArabic = true;
         let isUserVip = false; 
 
-        // === نظام سجل المشاهدة (LocalStorage) ===
         function saveToHistory(animeId, epNum) {
             let history = JSON.parse(localStorage.getItem('wt_history') || '[]');
-            history = history.filter(h => h.animeId !== animeId); // حذف القديم لنفس الأنمي
+            history = history.filter(h => h.animeId !== animeId); 
             history.unshift({ animeId, epNum, timestamp: Date.now() });
-            if(history.length > 5) history.pop(); // الاحتفاظ بآخر 5 فقط
+            if(history.length > 5) history.pop(); 
             localStorage.setItem('wt_history', JSON.stringify(history));
         }
 
@@ -494,7 +488,7 @@
                 }
                 else if (page === 'watch' && id && epNum) {
                     currentState = { animeId: id, epNum: parseInt(epNum), serverIdx: 0, qualityIdx: 0 };
-                    saveToHistory(id, epNum); // حفظ السجل
+                    saveToHistory(id, epNum); 
                     this.renderWatch();
                     document.getElementById('view-watch').classList.add('active');
                     document.getElementById('globalBackBtn').style.display = 'flex';
@@ -528,7 +522,7 @@
                     hero.style.display = 'flex'; trendingHeader.style.display = 'flex'; trendingSection.style.display = 'flex';
                     latestHeader.style.display = 'flex'; grid.style.marginTop = '0';
                     
-                    renderHistory(); // عرض سجل المشاهدة
+                    renderHistory(); 
 
                     const trending = [...database].sort((a, b) => (parseFloat(b.rating) || 0) - (parseFloat(a.rating) || 0)).slice(0, 5);
                     trendingSection.innerHTML = trending.map(item => `
@@ -583,7 +577,6 @@
                 const epTxt = isArabic ? 'الحلقة' : 'Episode';
                 document.getElementById('watchSubtitle').innerText = `${epTxt} ${ep.epNum} - ${ep.title}`;
                 
-                // Next Episode Button
                 const nextEpContainer = document.getElementById('nextEpContainer');
                 const currentEpIndex = item.episodes.findIndex(e => e.epNum === currentState.epNum);
                 if (currentEpIndex !== -1 && currentEpIndex < item.episodes.length - 1) {
@@ -597,7 +590,6 @@
                 const qualityGroup = document.getElementById('qualityGroup');
 
                 if (ep.servers && ep.servers.length > 0) {
-                    // Report Button
                     const reportLink = `mailto:benssariyassine@gmail.com?subject=Issue with ${item.title} Ep ${ep.epNum}`;
                     serverGroup.innerHTML = ep.servers.map((srv, idx) => `
                         <button class="opt-btn ${idx === currentState.serverIdx ? 'active' : ''}" onclick="changeServer(${idx})">${srv.name}</button>
@@ -608,7 +600,6 @@
                         </a>
                     `;
 
-                    // Quality & VIP Lock Logic
                     const currentServer = ep.servers[currentState.serverIdx];
                     qualityGroup.innerHTML = currentServer.qualities.map((q, idx) => {
                         const isPremium = (q.quality.toUpperCase().includes('HD'));
@@ -674,12 +665,10 @@
             `).join('');
         }
 
-        // VIP Modal Controls
         function openVipModal() { document.getElementById('vipModal').classList.add('active'); }
         function closeVipModal() { document.getElementById('vipModal').classList.remove('active'); }
         function closeVipModalOnBg(event) { if(event.target.id === 'vipModal') closeVipModal(); }
 
-        // Info Modal Controls
         function openInfoModal(title, text) {
             document.getElementById('infoTitle').innerText = title;
             document.getElementById('infoText').innerText = text;
