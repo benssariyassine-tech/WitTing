@@ -4,208 +4,191 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Wit-Ting | منصة المشاهدة</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg: #050505;
-            --surface: #121212;
-            --surface-hover: #1e1e1e;
-            --text-main: #ffffff;
-            --text-muted: #888888;
-            --primary: #e50914; 
-            --glass-bg: rgba(15, 15, 15, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.08);
+            --netflix-red: #e50914;
+            --bg-black: #141414;
+            --bg-darker: #000000;
+            --text-white: #ffffff;
+            --text-gray: #b3b3b3;
+            --glass-bg: rgba(0, 0, 0, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background-color: var(--bg); color: var(--text-main); padding-bottom: 80px; overflow-x: hidden; }
+        body { background-color: var(--bg-darker); color: var(--text-white); padding-bottom: 80px; overflow-x: hidden; }
         a { text-decoration: none; color: inherit; }
         svg { display: block; }
+        
+        /* إخفاء شريط التمرير للصفوف */
+        ::-webkit-scrollbar { display: none; }
 
-        /* ================= الهيدر ================= */
+        /* ================= الهيدر (Header) ================= */
         .header {
             position: fixed; top: 0; left: 0; width: 100%; height: 60px;
-            background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            display: flex; align-items: center; justify-content: space-between; padding: 0 15px;
-            z-index: 1000; border-bottom: 1px solid var(--glass-border);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+            display: flex; align-items: center; justify-content: space-between; padding: 0 20px;
+            z-index: 1000; transition: background 0.3s;
         }
-
-        .header-right, .header-left { display: flex; align-items: center; gap: 10px; }
+        .header.scrolled { background: var(--bg-black); }
         
-        /* شعار W الجديد */
-        .site-logo { display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 22px; cursor: pointer; color: var(--primary);}
-        .site-logo svg { width: 30px; height: 30px; fill: var(--primary); }
-
-        .icon-btn { background: none; border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 5px;}
+        .site-logo { display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 24px; color: var(--netflix-red); cursor: pointer; letter-spacing: -1px;}
+        
+        .header-actions { display: flex; gap: 15px; }
+        .icon-btn { background: none; border: none; color: white; cursor: pointer; padding: 5px; }
         .icon-btn svg { width: 24px; height: 24px; fill: white; }
 
-        /* ================= زر الرجوع الزجاجي (Back Button) ================= */
+        /* ================= زر الرجوع ================= */
         .back-btn {
             position: fixed; top: 70px; right: 20px; z-index: 999;
             width: 45px; height: 45px; border-radius: 50%;
-            background: var(--glass-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            background: var(--glass-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
             border: 1px solid var(--glass-border); color: white;
             display: none; align-items: center; justify-content: center;
             cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            transition: transform 0.2s;
         }
-        .back-btn:active { transform: scale(0.9); }
         .back-btn svg { width: 24px; height: 24px; fill: currentColor; }
 
-        /* ================= شريط البحث ================= */
-        .search-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(10px);
-            z-index: 2000; padding: 20px; display: none; flex-direction: column;
-        }
-        .search-overlay.active { display: flex; }
-        .search-box { display: flex; align-items: center; background: var(--surface); border-radius: 12px; padding: 10px 15px; margin-top: 50px; border: 1px solid #333; }
-        .search-box input { flex: 1; background: none; border: none; color: white; font-size: 16px; outline: none; }
-
-        /* ================= الصفحات ================= */
-        .view { display: none; padding-top: 70px; animation: fadeIn 0.4s ease; }
+        /* ================= الصفحات (Views) ================= */
+        .view { display: none; animation: fadeIn 0.5s ease; }
         .view.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* ================= الصفحة الرئيسية ================= */
-        .section-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; }
-        .section-title { font-size: 20px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
-        .section-title::before { content: ''; display: block; width: 4px; height: 20px; background: var(--primary); border-radius: 4px; }
+        /* ================= البانر الرئيسي (Hero) ================= */
+        .hero {
+            position: relative; width: 100%; height: 65vh;
+            background-size: cover; background-position: center top;
+            display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;
+        }
+        .hero::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(to top, var(--bg-darker) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.8) 100%);
+            z-index: 1;
+        }
+        .hero-content { position: relative; z-index: 2; text-align: center; margin-bottom: 20px; }
+        .hero-title { font-size: 32px; font-weight: 900; margin-bottom: 10px; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
+        .hero-desc { font-size: 14px; color: #ddd; margin-bottom: 20px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .hero-btn {
+            background: var(--text-white); color: var(--bg-darker); border: none;
+            padding: 10px 25px; border-radius: 5px; font-weight: 800; font-size: 16px;
+            display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
+        }
+        .hero-btn svg { width: 20px; height: 20px; fill: var(--bg-darker); }
 
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 15px; padding: 0 20px; margin-bottom: 30px; }
-
-        .card { cursor: pointer; border-radius: 10px; overflow: hidden; background: var(--surface); transition: transform 0.3s; position: relative; }
-        .card:active { transform: scale(0.95); }
-        .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; }
+        /* ================= الصفوف (Rows) ================= */
+        .row-container { margin-bottom: 25px; position: relative; }
+        .row-title { font-size: 18px; font-weight: 800; margin: 0 20px 10px; }
+        .row-scroll {
+            display: flex; overflow-x: auto; gap: 10px; padding: 0 20px 10px;
+            scroll-snap-type: x mandatory;
+        }
+        .row-scroll::-webkit-scrollbar { display: none; }
         
-        .card-badge { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.8); padding: 2px 6px; border-radius: 6px; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 3px;}
-        .card-badge svg { width: 12px; height: 12px; fill: #fbbf24; }
-
-        .card-info { padding: 10px; text-align: center; }
-        .card-title { font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .card-meta { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
-
-        .empty-state { text-align: center; padding: 50px 20px; color: var(--text-muted); grid-column: 1/-1; }
+        .card {
+            flex: 0 0 auto; width: 120px; aspect-ratio: 2/3;
+            border-radius: 8px; overflow: hidden; position: relative;
+            cursor: pointer; scroll-snap-align: start; transition: transform 0.3s;
+            background: var(--bg-black); border: 1px solid rgba(255,255,255,0.05);
+        }
+        .card:active { transform: scale(0.95); }
+        .card img { width: 100%; height: 100%; object-fit: cover; }
+        .card-badge {
+            position: absolute; top: 5px; right: 5px; background: rgba(0,0,0,0.8);
+            padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: bold;
+        }
 
         /* ================= صفحة التفاصيل ================= */
-        .backdrop { width: 100%; height: 350px; object-fit: cover; position: absolute; top: 0; left: 0; z-index: -1; mask-image: linear-gradient(to bottom, black 30%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 100%); }
+        .details-bg {
+            width: 100%; height: 50vh; object-fit: cover; position: absolute; top: 0; left: 0;
+            z-index: -1; mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+        }
+        .details-content { padding: 35vh 20px 100px; }
+        .details-header { display: flex; gap: 15px; margin-bottom: 20px; }
+        .details-poster { width: 110px; border-radius: 8px; box-shadow: 0 10px 20px rgba(0,0,0,0.8); }
+        .details-info h1 { font-size: 24px; font-weight: 900; margin-bottom: 10px; }
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px; }
+        .tag { background: rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 4px; font-size: 12px; color: #ddd; }
+        .synopsis { color: var(--text-gray); font-size: 14px; line-height: 1.8; margin-bottom: 20px; }
         
-        /* زدنا padding-bottom باش القائمة السفلية ماتغطيش على المعلومات */
-        .details-content { padding: 150px 20px 100px; }
-        .details-header { display: flex; gap: 15px; align-items: flex-end; margin-bottom: 20px; }
-        .details-poster { width: 130px; border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.8); }
-        
-        .details-info h1 { font-size: 22px; font-weight: 900; margin-bottom: 10px; }
-        .details-badges { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap;}
-        .badge { background: var(--surface); border: 1px solid #333; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: bold; }
-        
-        .synopsis { color: #bbb; font-size: 14px; line-height: 1.8; margin-bottom: 25px; }
-        
-        .info-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; background: var(--surface); border-radius: 10px; overflow: hidden; }
-        .info-table td { padding: 12px 15px; border-bottom: 1px solid #222; font-size: 13px; }
-        .info-table td:first-child { color: var(--text-muted); width: 40%; }
-        .info-table td:last-child { font-weight: bold; text-align: left; direction: ltr; }
-
-        .watch-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 15px; background: white; color: black; font-size: 16px; font-weight: 900; border-radius: 10px; border: none; cursor: pointer; margin-bottom: 30px; }
-        .watch-btn svg { width: 20px; height: 20px; fill: black; }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 30px; font-size: 13px; color: var(--text-gray); }
+        .info-grid span { font-weight: bold; color: white; }
 
         /* ================= صفحة المشاهدة ================= */
+        .watch-backdrop {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            object-fit: cover; filter: blur(30px) brightness(0.2); z-index: -1;
+        }
         .video-wrapper { width: 100%; aspect-ratio: 16/9; background: #000; }
         .video-wrapper video { width: 100%; height: 100%; }
         
-        .watch-details { padding: 20px 20px 100px; }
-        .watch-title { font-size: 18px; font-weight: 800; margin-bottom: 10px; }
+        .watch-content { padding: 20px 20px 100px; }
+        .watch-title { font-size: 20px; font-weight: 800; margin-bottom: 20px; }
         
-        .server-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin: 15px 0; }
-        .server-btn { background: var(--surface); border: 1px solid #333; color: white; padding: 10px; border-radius: 8px; font-size: 13px; cursor: pointer; text-align: center; }
-        .server-btn.active { background: white; color: black; border-color: white; font-weight: bold; }
-
-        .episodes-row { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; margin-top: 20px; }
-        .ep-num { flex: 0 0 45px; height: 45px; display: flex; align-items: center; justify-content: center; background: var(--surface); border: 1px solid #333; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        .ep-num.active { background: white; color: black; border-color: white; }
-
-        /* ================= الفوتر (Footer) ================= */
-        .site-footer {
-            background: var(--surface);
-            padding: 40px 20px 100px;
-            border-top: 1px solid #222;
-            margin-top: 30px;
-            text-align: center;
+        .options-title { font-size: 13px; color: var(--text-gray); margin-bottom: 8px; }
+        .btn-group { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+        .opt-btn {
+            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1);
+            color: white; padding: 8px 16px; border-radius: 5px; font-size: 13px; cursor: pointer;
         }
+        .opt-btn.active { background: var(--netflix-red); border-color: var(--netflix-red); font-weight: bold; }
 
-        .footer-logos { display: flex; justify-content: center; align-items: center; gap: 40px; margin-bottom: 30px; }
-        .footer-logo-item { display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0.8; }
-        .footer-logo-item svg { width: 40px; height: 40px; }
-        .footer-logo-item span { font-size: 13px; font-weight: bold; }
+        /* قائمة الحلقات */
+        .ep-list { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; }
+        .ep-card {
+            flex: 0 0 auto; width: 130px; background: var(--bg-black); border-radius: 6px;
+            overflow: hidden; cursor: pointer; border: 1px solid rgba(255,255,255,0.1);
+        }
+        .ep-card.active { border-color: var(--netflix-red); }
+        .ep-card img { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+        .ep-card div { padding: 8px; text-align: center; font-size: 12px; font-weight: bold; }
 
-        .footer-links { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 400px; margin: 0 auto 30px; }
-        /* الروابط ولات أزرار كتخدم */
-        .footer-links a { color: var(--text-muted); font-size: 13px; transition: color 0.3s; cursor: pointer; }
-        .footer-links a:hover { color: white; }
-
-        .footer-copyright { border-top: 1px solid #222; padding-top: 20px; color: #555; font-size: 11px; line-height: 1.6; }
+        /* ================= شريط البحث ================= */
+        .search-overlay { position: fixed; inset: 0; background: var(--bg-darker); z-index: 2000; padding: 20px; display: none; flex-direction: column; }
+        .search-overlay.active { display: flex; }
+        .search-box { display: flex; align-items: center; background: var(--bg-black); border-radius: 8px; padding: 10px 15px; margin-top: 50px; border: 1px solid #333; }
+        .search-box input { flex: 1; background: none; border: none; color: white; font-size: 16px; outline: none; }
 
         /* ================= القائمة السفلية العائمة ================= */
         .floating-nav {
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-            width: 90%; max-width: 400px; height: 65px;
-            background: var(--glass-bg); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid var(--glass-border); border-radius: 35px;
+            width: 90%; max-width: 400px; height: 60px;
+            background: rgba(20, 20, 20, 0.9); backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 30px;
             display: flex; justify-content: space-around; align-items: center;
-            z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s;
+            z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            transition: transform 0.3s, opacity 0.3s;
         }
         .floating-nav.hidden { transform: translate(-50%, 150%); opacity: 0; }
-
-        .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); font-size: 11px; font-weight: 600; gap: 4px; width: 70px; height: 100%; cursor: pointer; transition: color 0.3s; position: relative; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-gray); font-size: 11px; font-weight: 600; gap: 4px; cursor: pointer; }
         .nav-item svg { width: 22px; height: 22px; fill: currentColor; }
-        .nav-item.active { color: var(--text-main); }
-        .nav-item.active::after { content: ''; position: absolute; bottom: 8px; width: 4px; height: 4px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 8px var(--primary); }
+        .nav-item.active { color: var(--netflix-red); }
 
-        /* ================= النافذة المنبثقة (Modal) ================= */
-        .modal-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px);
-            z-index: 3000; display: none; align-items: center; justify-content: center; padding: 20px;
-        }
-        .modal-overlay.active { display: flex; }
-        .modal-content {
-            background: var(--surface); border: 1px solid #333; border-radius: 15px;
-            width: 100%; max-width: 400px; padding: 25px; position: relative;
-            animation: fadeIn 0.3s ease;
-        }
-        .modal-close { position: absolute; top: 15px; left: 15px; background: none; border: none; color: #aaa; cursor: pointer; }
-        .modal-close svg { width: 24px; height: 24px; fill: currentColor; }
-        .modal-title { font-size: 18px; font-weight: 800; margin-bottom: 15px; color: var(--primary); }
-        .modal-text { color: #ccc; font-size: 14px; line-height: 1.8; }
-
+        /* ================= الفوتر ================= */
+        .footer { padding: 40px 20px 100px; text-align: center; color: var(--text-gray); font-size: 12px; border-top: 1px solid #222; }
+        .footer-logos { display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; }
+        .footer-logos svg { width: 35px; height: 35px; fill: white; opacity: 0.8; }
+        .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-bottom: 20px; }
+        .footer-links a { cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <!-- زر الرجوع (مخفي أوتوماتيكياً في الرئيسية) -->
     <button class="back-btn" id="globalBackBtn" onclick="router.go('home')">
         <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
     </button>
 
-    <!-- ================= الهيدر ================= -->
-    <header class="header">
-        <div class="header-right">
-            <!-- شعار الموقع الجديد W -->
-            <div class="site-logo" onclick="router.go('home')">
-                <svg viewBox="0 0 24 24"><path d="M2 4h4l3 12 3-10h4l3 10 3-12h4l-5 16h-4l-3-10-3 10H7L2 4z"/></svg>
-                Wit-Ting
-            </div>
-        </div>
-        
-        <div class="header-left">
+    <header class="header" id="mainHeader">
+        <div class="site-logo" onclick="router.go('home')">WIT-TING</div>
+        <div class="header-actions">
             <button class="icon-btn" onclick="toggleSearch()">
                 <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
             </button>
         </div>
     </header>
 
-    <!-- ================= البحث ================= -->
     <div class="search-overlay" id="searchOverlay">
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="ابحث عن أنمي أو فيلم..." oninput="performSearch(this.value)">
@@ -213,182 +196,141 @@
                 <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
             </button>
         </div>
-        <div class="grid-container" id="searchResults" style="margin-top: 20px;"></div>
+        <div class="row-scroll" id="searchResults" style="margin-top: 20px;"></div>
     </div>
 
-    <!-- ================= الصفحة الرئيسية ================= -->
+    <!-- الرئيسية -->
     <section id="view-home" class="view active">
-        <div class="section-header">
-            <h2 class="section-title" id="homeTitle">أحدث الإضافات</h2>
+        <div class="hero" id="heroBanner">
+            <div class="hero-content">
+                <h1 class="hero-title" id="heroTitle">جاري التحميل...</h1>
+                <p class="hero-desc" id="heroDesc"></p>
+                <button class="hero-btn" id="heroBtn" onclick="watchHero()">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> مشاهدة
+                </button>
+            </div>
         </div>
-        <div class="grid-container" id="homeGrid"></div>
 
-        <!-- الفوتر -->
-        <footer class="site-footer">
+        <div class="row-container">
+            <h2 class="row-title">أحدث الإضافات</h2>
+            <div class="row-scroll" id="latestRow"></div>
+        </div>
+
+        <div class="row-container">
+            <h2 class="row-title">أنمي</h2>
+            <div class="row-scroll" id="animeRow"></div>
+        </div>
+
+        <div class="row-container">
+            <h2 class="row-title">أفلام</h2>
+            <div class="row-scroll" id="moviesRow"></div>
+        </div>
+
+        <footer class="footer">
             <div class="footer-logos">
-                <!-- شعار iStore -->
-                <div class="footer-logo-item">
-                    <svg viewBox="0 0 24 24" fill="#4db8b8"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/><circle cx="4" cy="12" r="2" fill="#4db8b8"/></svg>
-                    <span>iStore Team</span>
-                </div>
-                <!-- شعار GitHub المصحح -->
-                <div class="footer-logo-item">
-                    <svg viewBox="0 0 24 24" fill="white"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                    <span>GitHub</span>
-                </div>
+                <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
             </div>
-
             <div class="footer-links">
-                <a onclick="openModal('شروط الاستخدام', 'هنا يتم كتابة شروط الاستخدام الخاصة بموقع Wit-Ting. يرجى قراءتها بعناية.')">شروط الاستخدام</a>
-                <a onclick="openModal('من نحن', 'نحن منصة Wit-Ting، نوفر لك أفضل تجربة لمشاهدة الأنمي والأفلام المترجمة بأعلى جودة.')">من نحن</a>
-                <a onclick="openModal('اتصل بالدعم', 'للتواصل معنا، يرجى مراسلتنا عبر البريد الإلكتروني: support@witting.com')">اتصل بالدعم</a>
-                <a onclick="openModal('سياسة الخصوصية', 'نحن نحترم خصوصيتك. لا نقوم بتخزين أي بيانات شخصية عنك، جميع الروابط خارجية.')">سياسة الخصوصية</a>
-                <a onclick="openModal('حقوق الملكية (DMCA)', 'جميع الحقوق محفوظة لأصحابها. إذا كنت مالك حقوق وتعتقد أن هناك انتهاكاً، يرجى التواصل معنا.')" style="grid-column: 1 / -1;">حقوق الملكية (DMCA)</a>
+                <a>شروط الاستخدام</a> <a>من نحن</a> <a>اتصل بالدعم</a> <a>سياسة الخصوصية</a>
             </div>
-
-            <div class="footer-copyright">
-                <p>تنويه: لا يخزن هذا الموقع أي ملفات على خادمه، جميع المحتويات مقدمة من جهات خارجية غير تابعة له.</p>
-                <p style="margin-top: 10px;">© 2026 Wit-Ting. جميع الحقوق محفوظة.</p>
-            </div>
+            <p>© 2026 Wit-Ting. جميع الحقوق محفوظة.</p>
         </footer>
     </section>
 
-    <!-- ================= صفحة التفاصيل ================= -->
+    <!-- التفاصيل -->
     <section id="view-details" class="view">
-        <img src="" class="backdrop" id="dtBackdrop">
+        <img src="" class="details-bg" id="dtBackdrop">
         <div class="details-content">
             <div class="details-header">
                 <img src="" class="details-poster" id="dtPoster">
                 <div class="details-info">
-                    <h1 id="dtTitle">اسم العمل</h1>
-                    <div class="details-badges" id="dtBadges"></div>
+                    <h1 id="dtTitle"></h1>
+                    <div class="tags" id="dtTags"></div>
                 </div>
             </div>
             <p class="synopsis" id="dtSynopsis"></p>
-            <table class="info-table" id="dtInfoTable"></table>
-            <button class="watch-btn" onclick="watchFirstEpisode()">
-                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                شاهد الآن
+            <div class="info-grid" id="dtInfo"></div>
+            <button class="hero-btn" style="width: 100%; justify-content: center; background: var(--netflix-red); color: white;" onclick="watchFirstEpisode()">
+                <svg viewBox="0 0 24 24" style="fill:white;"><path d="M8 5v14l11-7z"/></svg> شاهد الآن
             </button>
         </div>
     </section>
 
-    <!-- ================= صفحة المشاهدة ================= -->
+    <!-- المشاهدة -->
     <section id="view-watch" class="view">
-        <div class="video-wrapper">
-            <video id="videoPlayer" controls poster="">
-                <source src="" type="video/mp4">
-            </video>
-        </div>
-        <div class="watch-details">
-            <h1 class="watch-title" id="watchTitle">اسم الحلقة</h1>
-            <p style="font-size: 13px; color: #aaa; margin-bottom: 5px;">السيرفرات:</p>
-            <div class="server-grid">
-                <button class="server-btn active">Mega</button>
-                <button class="server-btn">Drive</button>
-                <button class="server-btn">Videa</button>
+        <img src="" class="watch-backdrop" id="watchBackdrop">
+        <div style="padding-top: 20px;">
+            <div class="video-wrapper">
+                <video id="videoPlayer" controls autoplay>
+                    <source src="" type="video/mp4">
+                </video>
             </div>
-            <p style="font-size: 13px; color: #aaa; margin-top: 20px; margin-bottom: 5px;">الحلقات:</p>
-            <div class="episodes-row" id="watchEpisodesRow"></div>
+            <div class="watch-content">
+                <h1 class="watch-title" id="watchTitle"></h1>
+                
+                <div class="options-title">الجودة:</div>
+                <div class="btn-group" id="qualityGroup"></div>
+
+                <div class="options-title">السيرفر:</div>
+                <div class="btn-group" id="serverGroup"></div>
+
+                <div class="options-title" style="margin-top:20px;">الحلقات:</div>
+                <div class="ep-list" id="episodesList"></div>
+            </div>
         </div>
     </section>
 
-    <!-- ================= القائمة السفلية ================= -->
     <nav class="floating-nav" id="bottomNav">
         <div class="nav-item active" data-tab="home" onclick="router.go('home')">
-            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-            الرئيسية
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg> الرئيسية
         </div>
         <div class="nav-item" data-tab="anime" onclick="router.go('anime')">
-            <svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/></svg>
-            أنمي
+            <svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/></svg> أنمي
         </div>
         <div class="nav-item" data-tab="movies" onclick="router.go('movies')">
-            <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
-            أفلام
+            <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg> أفلام
         </div>
     </nav>
 
-    <!-- ================= النافذة المنبثقة (Modal) ================= -->
-    <div class="modal-overlay" id="infoModal" onclick="closeModalOnBg(event)">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal()">
-                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-            </button>
-            <h2 class="modal-title" id="modalTitle">عنوان</h2>
-            <p class="modal-text" id="modalText">نص</p>
-        </div>
-    </div>
-
-    <!-- ================= الجافاسكريبت ================= -->
     <script>
-        // ⚠️ هاد المتغير غادي يتعمر أوتوماتيكيا من ملف data.json
         let database = [];
+        let currentState = { animeId: null, epNum: null, serverIdx: 0, qualityIdx: 0 };
+        let heroAnimeId = null;
 
-        // ==========================================
-        // 1. نظام التنقل (Router)
-        // ==========================================
         const router = {
             go: function(page, id = null, epNum = null) {
                 document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
                 document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-                document.getElementById('globalBackBtn').style.display = 'none'; // إخفاء زر الرجوع
+                document.getElementById('globalBackBtn').style.display = 'none';
 
                 if (page === 'home' || page === 'anime' || page === 'movies') {
                     document.getElementById('view-home').classList.add('active');
                     document.querySelector(`.nav-item[data-tab="${page}"]`).classList.add('active');
-                    this.renderHome(page);
+                    this.scrollToRows(page);
                     window.location.hash = page === 'home' ? '' : `#${page}`;
                 } 
                 else if (page === 'details' && id) {
                     this.renderDetails(id);
                     document.getElementById('view-details').classList.add('active');
-                    document.getElementById('globalBackBtn').style.display = 'flex'; // إظهار زر الرجوع
+                    document.getElementById('globalBackBtn').style.display = 'flex';
                     window.location.hash = `#details/${id}`;
                 }
                 else if (page === 'watch' && id && epNum) {
-                    this.renderWatch(id, epNum);
+                    currentState = { animeId: id, epNum: parseInt(epNum), serverIdx: 0, qualityIdx: 0 };
+                    this.renderWatch();
                     document.getElementById('view-watch').classList.add('active');
-                    document.getElementById('globalBackBtn').style.display = 'flex'; // إظهار زر الرجوع
+                    document.getElementById('globalBackBtn').style.display = 'flex';
                     window.location.hash = `#watch/${id}/${epNum}`;
                     document.getElementById('bottomNav').classList.add('hidden');
                 }
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             },
 
-            renderHome: function(filterType) {
-                const grid = document.getElementById('homeGrid');
-                const title = document.getElementById('homeTitle');
-                
-                let filteredData = database;
-                if (filterType === 'anime') {
-                    filteredData = database.filter(item => item.type === 'anime');
-                    title.innerText = "قائمة الأنمي";
-                } else if (filterType === 'movies') {
-                    filteredData = database.filter(item => item.type === 'movie');
-                    title.innerText = "قائمة الأفلام";
-                } else {
-                    title.innerText = "أحدث الإضافات";
-                }
-
-                if (filteredData.length === 0) {
-                    grid.innerHTML = `<div class="empty-state"><p>لا توجد عناصر مضافة حالياً.</p></div>`;
-                    return;
-                }
-
-                grid.innerHTML = filteredData.map(item => `
-                    <div class="card" onclick="router.go('details', '${item.id}')">
-                        <img src="${item.poster}" alt="${item.title}">
-                        <div class="card-badge">
-                            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                            ${item.rating}
-                        </div>
-                        <div class="card-info">
-                            <div class="card-title">${item.title}</div>
-                            <div class="card-meta">${item.type === 'anime' ? 'أنمي' : 'فيلم'}</div>
-                        </div>
-                    </div>
-                `).join('');
+            scrollToRows: function(target) {
+                const rows = { anime: document.getElementById('animeRow'), movies: document.getElementById('moviesRow') };
+                if (rows[target]) rows[target].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                else window.scrollTo({ top: 0, behavior: 'smooth' });
             },
 
             renderDetails: function(id) {
@@ -399,145 +341,131 @@
                 document.getElementById('dtPoster').src = item.poster;
                 document.getElementById('dtTitle').innerText = item.title;
                 document.getElementById('dtSynopsis').innerText = item.synopsis;
+                document.getElementById('dtTags').innerHTML = item.tags.map(t => `<span class="tag">${t}</span>`).join('');
                 
-                document.getElementById('dtBadges').innerHTML = `
-                    <span class="badge" style="background:var(--primary); color:white;">${item.rating} ★</span>
-                    <span class="badge">${item.type === 'anime' ? 'مسلسل' : 'فيلم'}</span>
-                    ${item.tags.map(t => `<span class="badge">${t}</span>`).join('')}
-                `;
-
-                let infoHTML = '';
-                if(item.info) {
-                    if(item.info.studio) infoHTML += `<tr><td>الاستوديو</td><td>${item.info.studio}</td></tr>`;
-                    if(item.info.year) infoHTML += `<tr><td>السنة</td><td>${item.info.year}</td></tr>`;
-                    if(item.info.season) infoHTML += `<tr><td>الموسم</td><td>${item.info.season}</td></tr>`;
-                    if(item.info.episodes_count) infoHTML += `<tr><td>عدد الحلقات</td><td>${item.info.episodes_count}</td></tr>`;
-                    if(item.info.duration) infoHTML += `<tr><td>المدة</td><td>${item.info.duration}</td></tr>`;
-                }
-                document.getElementById('dtInfoTable').innerHTML = infoHTML;
-                
-                const watchBtn = document.querySelector('.watch-btn');
-                watchBtn.style.display = (item.episodes && item.episodes.length > 0) ? 'flex' : 'none';
+                let infoHTML = `<div>الاستوديو: <span>${item.info.studio}</span></div>
+                                <div>السنة: <span>${item.info.year}</span></div>
+                                <div>الحلقات: <span>${item.info.episodes_count}</span></div>
+                                <div>المدة: <span>${item.info.duration}</span></div>`;
+                document.getElementById('dtInfo').innerHTML = infoHTML;
             },
 
-            renderWatch: function(id, epNum) {
-                const item = database.find(a => a.id === id);
-                if(!item) return;
-                const ep = item.episodes.find(e => e.epNum == epNum);
-                if(!ep) return;
+            renderWatch: function() {
+                const item = database.find(a => a.id === currentState.animeId);
+                const ep = item.episodes.find(e => e.epNum === currentState.epNum);
+                if(!item || !ep) return;
 
+                document.getElementById('watchBackdrop').src = item.backdrop || item.poster;
                 document.getElementById('watchTitle').innerText = `${item.title} - الحلقة ${ep.epNum}`;
                 
+                // السيرفرات
+                const serverGroup = document.getElementById('serverGroup');
+                serverGroup.innerHTML = ep.servers.map((srv, idx) => `
+                    <button class="opt-btn ${idx === currentState.serverIdx ? 'active' : ''}" onclick="changeServer(${idx})">${srv.name}</button>
+                `).join('');
+
+                // الجودات
+                const currentServer = ep.servers[currentState.serverIdx];
+                const qualityGroup = document.getElementById('qualityGroup');
+                qualityGroup.innerHTML = currentServer.qualities.map((q, idx) => `
+                    <button class="opt-btn ${idx === currentState.qualityIdx ? 'active' : ''}" onclick="changeQuality(${idx})">${q.quality}</button>
+                `).join('');
+
+                // الفيديو
                 const video = document.getElementById('videoPlayer');
-                video.src = ep.videoUrl;
-                video.poster = item.backdrop || item.poster;
+                video.src = currentServer.qualities[currentState.qualityIdx].url;
                 video.load();
 
-                document.getElementById('watchEpisodesRow').innerHTML = item.episodes.map(e => `
-                    <div class="ep-num ${e.epNum == epNum ? 'active' : ''}" onclick="router.go('watch', '${item.id}', ${e.epNum})">
-                        ${e.epNum}
+                // الحلقات
+                const epList = document.getElementById('episodesList');
+                epList.innerHTML = item.episodes.map(e => `
+                    <div class="ep-card ${e.epNum === currentState.epNum ? 'active' : ''}" onclick="router.go('watch', '${item.id}', ${e.epNum})">
+                        <img src="${e.thumbnail || item.poster}">
+                        <div>الحلقة ${e.epNum}</div>
                     </div>
                 `).join('');
             }
         };
 
-        // ==========================================
-        // 2. دوال مساعدة (Modal & Search)
-        // ==========================================
+        function changeServer(idx) { currentState.serverIdx = idx; currentState.qualityIdx = 0; router.renderWatch(); }
+        function changeQuality(idx) { currentState.qualityIdx = idx; router.renderWatch(); }
+        
         function watchFirstEpisode() {
             const hash = window.location.hash.split('/')[1];
             const item = database.find(a => a.id === hash);
-            if(item && item.episodes && item.episodes.length > 0) {
-                router.go('watch', item.id, item.episodes[0].epNum);
+            if(item && item.episodes.length > 0) router.go('watch', item.id, item.episodes[0].epNum);
+        }
+
+        function watchHero() {
+            if(heroAnimeId) {
+                const item = database.find(a => a.id === heroAnimeId);
+                if(item && item.episodes.length > 0) router.go('watch', item.id, item.episodes[0].epNum);
             }
         }
 
         function toggleSearch() {
             document.getElementById('searchOverlay').classList.toggle('active');
-            if(document.getElementById('searchOverlay').classList.contains('active')){
-                document.getElementById('searchInput').focus();
-            } else {
-                document.getElementById('searchInput').value = '';
-                document.getElementById('searchResults').innerHTML = '';
-            }
+            if(document.getElementById('searchOverlay').classList.contains('active')) document.getElementById('searchInput').focus();
+            else document.getElementById('searchResults').innerHTML = '';
         }
 
         function performSearch(query) {
             const results = document.getElementById('searchResults');
-            if(query.trim() === '') { results.innerHTML = ''; return; }
-            
+            if(!query.trim()) { results.innerHTML = ''; return; }
             const matches = database.filter(a => a.title.toLowerCase().includes(query.toLowerCase()));
-            if(matches.length === 0) {
-                results.innerHTML = `<p style="color:#aaa; grid-column: 1/-1; text-align:center;">لا توجد نتائج</p>`;
-                return;
-            }
             results.innerHTML = matches.map(item => `
                 <div class="card" onclick="toggleSearch(); router.go('details', '${item.id}')">
                     <img src="${item.poster}">
-                    <div class="card-info"><div class="card-title">${item.title}</div></div>
                 </div>
             `).join('');
         }
 
-        // دوال النوافذ المنبثقة
-        function openModal(title, text) {
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalText').innerText = text;
-            document.getElementById('infoModal').classList.add('active');
+        // تشغيل الموقع
+        async function init() {
+            try {
+                const res = await fetch('data.json');
+                database = await res.json();
+
+                if(database.length > 0) {
+                    // إعداد البانر
+                    const hero = database[0];
+                    heroAnimeId = hero.id;
+                    document.getElementById('heroBanner').style.backgroundImage = `url('${hero.backdrop || hero.poster}')`;
+                    document.getElementById('heroTitle').innerText = hero.title;
+                    document.getElementById('heroDesc').innerText = hero.synopsis;
+
+                    // إعداد الصفوف
+                    const createCard = (item) => `
+                        <div class="card" onclick="router.go('details', '${item.id}')">
+                            <img src="${item.poster}" loading="lazy">
+                            <div class="card-badge">⭐ ${item.rating}</div>
+                        </div>`;
+
+                    document.getElementById('latestRow').innerHTML = database.map(createCard).join('');
+                    document.getElementById('animeRow').innerHTML = database.filter(a => a.type === 'anime').map(createCard).join('');
+                    document.getElementById('moviesRow').innerHTML = database.filter(a => a.type === 'movie').map(createCard).join('');
+                }
+
+                const hash = window.location.hash;
+                if(hash.startsWith('#details/')) router.go('details', hash.split('/')[1]);
+                else if(hash.startsWith('#watch/')) { const p = hash.split('/'); router.go('watch', p[1], p[2]); }
+                else router.go('home');
+
+            } catch (err) { console.error("Error loading data", err); }
         }
 
-        function closeModal() {
-            document.getElementById('infoModal').classList.remove('active');
-        }
-
-        function closeModalOnBg(event) {
-            if(event.target.id === 'infoModal') closeModal();
-        }
-
-        // ==========================================
-        // 3. حركة القائمة السفلية والتشغيل الأولي
-        // ==========================================
-        let lastScrollTop = 0;
+        // تغيير خلفية الهيدر عند السكرول
         window.addEventListener('scroll', () => {
+            const header = document.getElementById('mainHeader');
+            if(window.scrollY > 50) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+
             const nav = document.getElementById('bottomNav');
             if(document.getElementById('view-watch').classList.contains('active')) return;
+            if(window.scrollY > 100) nav.classList.add('hidden'); else nav.classList.remove('hidden');
+        });
 
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            if (scrollTop > lastScrollTop && scrollTop > 50) {
-                nav.classList.add('hidden');
-            } else {
-                nav.classList.remove('hidden');
-            }
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-        }, { passive: true });
-
-        // جلب البيانات من data.json وتشغيل الموقع
-        async function fetchDataAndStart() {
-            try {
-                const response = await fetch('data.json');
-                if (!response.ok) throw new Error('Network response was not ok');
-                database = await response.json();
-                
-                const hash = window.location.hash;
-                if(hash.startsWith('#details/')) {
-                    router.go('details', hash.split('/')[1]);
-                } else if(hash.startsWith('#watch/')) {
-                    const parts = hash.split('/');
-                    router.go('watch', parts[1], parts[2]);
-                } else if(hash === '#anime') {
-                    router.go('anime');
-                } else if(hash === '#movies') {
-                    router.go('movies');
-                } else {
-                    router.go('home');
-                }
-            } catch (error) {
-                console.error("Error loading data:", error);
-                document.getElementById('homeGrid').innerHTML = `<p style="color:red; grid-column:1/-1; text-align:center;">مشكل في تحميل البيانات. تأكد من وجود ملف data.json بجانب index.html.</p>`;
-            }
-        }
-
-        window.addEventListener('load', fetchDataAndStart);
+        window.addEventListener('load', init);
     </script>
 </body>
 </html>
