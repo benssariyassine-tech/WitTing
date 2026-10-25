@@ -1,25 +1,25 @@
 [
     {
-        "id": "kaiju-no-8",
-        "title": "Kaiju No. 8",
+        "id": "kaiju-no-8-season-2",
+        "title": "Kaiju No. 8 - الموسم الثاني",
         "type": "anime",
         "is_upcoming": false,
         "rating": "8.5",
         "poster": "https://a.storyblok.com/f/178900/750x1060/dcece0cdde/kaiju-no-8-season-2-key-visual.jpg",
         "backdrop": "https://a.storyblok.com/f/178900/750x1060/dcece0cdde/kaiju-no-8-season-2-key-visual.jpg",
         "tags": ["أكشن", "خيال علمي", "شونين"],
-        "synopsis": "في عالم تتعرض فيه اليابان لهجمات الوحوش (كايجو)، يعمل كافكا هيبينو في تنظيف بقايا الوحوش. لكن حياته تتغير تماماً عندما يتحول جسده فجأة إلى وحش!",
+        "synopsis": "في عالم تتعرض فيه اليابان لهجمات الوحوش (كايجو)، يعمل كافكا هيبينو في تنظيف بقايا الوحوش. في هذا الموسم، تتطور الأحداث وتزداد المواجهات ضراوة.",
         "info": {
             "studio": "Production I.G",
-            "year": "2024",
-            "season": "ربيع",
+            "year": "2025",
+            "season": "شتاء",
             "episodes_count": "12",
             "duration": "24 دقيقة"
         },
         "episodes": [
             {
                 "epNum": 1,
-                "title": "الوحش يظهر",
+                "title": "بداية الموسم الثاني",
                 "thumbnail": "https://a.storyblok.com/f/178900/750x1060/dcece0cdde/kaiju-no-8-season-2-key-visual.jpg",
                 "servers": [
                     {
@@ -34,19 +34,5 @@
                 ]
             }
         ]
-    },
-    {
-        "id": "solo-leveling-s2",
-        "title": "Solo Leveling الموسم الثاني",
-        "type": "anime",
-        "is_upcoming": true,
-        "release_date": "يناير 2025",
-        "rating": "9.0",
-        "poster": "https://cdn.myanimelist.net/images/anime/1925/141697l.jpg",
-        "backdrop": "https://cdn.myanimelist.net/images/anime/1925/141697.jpg",
-        "tags": ["أكشن", "مغامرات"],
-        "synopsis": "استعدوا للموسم الثاني من أنمي سولو ليفلينغ، حيث يستمر سونغ جين وو في صعوده ليصبح أقوى صياد.",
-        "info": { "studio": "A-1 Pictures", "year": "2025", "season": "شتاء", "episodes_count": "13", "duration": "24 دقيقة" },
-        "episodes": []
     }
 ]
