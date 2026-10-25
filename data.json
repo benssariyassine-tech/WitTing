@@ -25,9 +25,18 @@
                     {
                         "name": "Server 1",
                         "qualities": [
-                            { "quality": "SD", "url": "https://archive.org/download/witanime.com-k-8-g-2-s-ep-01-sd/%5BWitanime.com%5D%20K8G2S%20EP%2001%20SD.mp4" },
-                            { "quality": "HD", "url": "https://example.com/hd.mp4" },
-                            { "quality": "Full HD", "url": "https://example.com/fhd.mp4" }
+                            {
+                                "quality": "SD",
+                                "url": "https://archive.org/download/witanime.com-k-8-g-2-s-ep-01-sd/%5BWitanime.com%5D%20K8G2S%20EP%2001%20SD.mp4"
+                            },
+                            {
+                                "quality": "HD",
+                                "url": "https://example.com/hd.mp4"
+                            },
+                            {
+                                "quality": "Full HD",
+                                "url": "https://example.com/fhd.mp4"
+                            }
                         ]
                     }
                 ]
