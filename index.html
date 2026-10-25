@@ -187,9 +187,21 @@
         .video-wrapper video { width: 100%; height: 100%; }
         
         .watch-content { padding: 20px 20px 100px; background: linear-gradient(to top, var(--bg-darker) 90%, transparent); }
-        .watch-title { font-size: 22px; font-weight: 800; margin-bottom: 5px; }
-        .watch-subtitle { font-size: 14px; color: var(--text-gray); margin-bottom: 15px; }
         
+        .watch-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;}
+        .watch-info-title { flex: 1; }
+        .watch-title { font-size: 22px; font-weight: 800; margin-bottom: 5px; }
+        .watch-subtitle { font-size: 14px; color: var(--text-gray); }
+
+        .next-ep-btn {
+            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+            color: white; padding: 10px 15px; border-radius: 8px; font-size: 13px; font-weight: bold;
+            display: flex; align-items: center; gap: 5px; cursor: pointer; backdrop-filter: blur(5px);
+            transition: background 0.2s;
+        }
+        .next-ep-btn:hover { background: rgba(255,255,255,0.2); }
+        .next-ep-btn svg { width: 16px; height: 16px; fill: white; }
+
         .disclaimer-box {
             background: rgba(229, 9, 20, 0.1); border: 1px solid rgba(229, 9, 20, 0.3);
             border-radius: 12px; padding: 15px; margin-bottom: 25px;
@@ -224,7 +236,7 @@
         .search-box { display: flex; align-items: center; background: var(--glass-bg); border-radius: 12px; padding: 12px 20px; margin-top: 50px; border: 1px solid var(--glass-border); }
         .search-box input { flex: 1; background: none; border: none; color: white; font-size: 16px; outline: none; }
 
-        /* ================= Bottom Nav ================= */
+        /* ================= Bottom Nav (iOS Glass) ================= */
         .floating-nav {
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
             width: 92%; max-width: 400px; height: 65px;
@@ -278,13 +290,11 @@
             </div>
         </div>
 
-        <!-- Trending Section -->
         <div class="section-header" id="trendingHeader">
             <h2 class="section-title">Trending Now</h2>
         </div>
         <div class="row-scroll" id="trendingRow"></div>
 
-        <!-- Latest Section -->
         <div class="section-header">
             <h2 class="section-title" id="mainTitle">Latest Additions</h2>
         </div>
@@ -317,8 +327,13 @@
             </video>
         </div>
         <div class="watch-content">
-            <h1 class="watch-title" id="watchTitle"></h1>
-            <h2 class="watch-subtitle" id="watchSubtitle"></h2>
+            <div class="watch-header">
+                <div class="watch-info-title">
+                    <h1 class="watch-title" id="watchTitle"></h1>
+                    <h2 class="watch-subtitle" id="watchSubtitle"></h2>
+                </div>
+                <div id="nextEpContainer"></div>
+            </div>
             
             <div class="disclaimer-box">
                 <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
@@ -341,7 +356,6 @@
         </div>
     </section>
 
-    <!-- Bottom Navigation -->
     <nav class="floating-nav" id="bottomNav">
         <div class="nav-item active" data-tab="home" onclick="router.go('home')">
             <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg> Home
@@ -372,11 +386,11 @@
                     window.location.hash = page === 'home' ? '' : `#${page}`;
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 } 
-                else if'). (page === 'details' && id) {
-                    this.renderDetails(idclass);
-                    document.getElementById('view-details').ListclassList.add('active');
-                    document.getElementById.add('globalBackBtn').style.display = 'flex('';
-                    window.location.hashhidden = `#details/${id}`;
+                else if (page === 'details' && id) {
+                    this.renderDetails(id);
+                    document.getElementById('view-details').classList.add('active');
+                    document.getElementById('globalBackBtn').style.display = 'flex';
+                    window.location.hash = `#details/${id}`;
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
                 else if (page === 'watch' && id && epNum) {
@@ -385,7 +399,7 @@
                     document.getElementById('view-watch').classList.add('active');
                     document.getElementById('globalBackBtn').style.display = 'flex';
                     window.location.hash = `#watch/${id}/${epNum}`;
-                    document.getElementById('bottomNav');
+                    document.getElementById('bottomNav').classList.add('hidden');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
             },
@@ -412,7 +426,6 @@
                     document.querySelector('.hero').style.display = 'flex';
                     trendingHeader.style.display = 'flex';
 
-                    // Setup Trending Row
                     const trending = [...database].sort((a, b) => (parseFloat(b.rating) || 0) - (parseFloat(a.rating) || 0)).slice(0, 5);
                     trendingSection.innerHTML = trending.map(item => `
                         <div class="row-card" onclick="router.go('details', '${item.id}')">
@@ -469,6 +482,16 @@
                 document.getElementById('watchTitle').innerText = `${item.title}`;
                 document.getElementById('watchSubtitle').innerText = `Episode ${ep.epNum} - ${ep.title}`;
                 
+                // Next Episode Button Logic
+                const nextEpContainer = document.getElementById('nextEpContainer');
+                const currentEpIndex = item.episodes.findIndex(e => e.epNum === currentState.epNum);
+                if (currentEpIndex !== -1 && currentEpIndex < item.episodes.length - 1) {
+                    const nextEpNum = item.episodes[currentEpIndex + 1].epNum;
+                    nextEpContainer.innerHTML = `<button class="next-ep-btn" onclick="router.go('watch', '${item.id}', ${nextEpNum})">Next <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>`;
+                } else {
+                    nextEpContainer.innerHTML = '';
+                }
+
                 const serverGroup = document.getElementById('serverGroup');
                 const qualityGroup = document.getElementById('qualityGroup');
 
