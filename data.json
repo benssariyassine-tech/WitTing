@@ -3,6 +3,7 @@
         "id": "kaiju-no-8",
         "title": "Kaiju No. 8",
         "type": "anime",
+        "is_upcoming": false,
         "rating": "8.5",
         "poster": "https://a.storyblok.com/f/178900/750x1060/dcece0cdde/kaiju-no-8-season-2-key-visual.jpg",
         "backdrop": "https://a.storyblok.com/f/178900/750x1060/dcece0cdde/kaiju-no-8-season-2-key-visual.jpg",
@@ -18,9 +19,34 @@
         "episodes": [
             {
                 "epNum": 1,
-                "title": "الحلقة 1",
-                "videoUrl": "https://archive.org/download/witanime.com-k-8-g-2-s-ep-01-sd/%5BWitanime.com%5D%20K8G2S%20EP%2001%20SD.mp4"
+                "title": "الوحش يظهر",
+                "thumbnail": "https://a.storyblok.com/f/178900/750x1060/dcece0cdde/kaiju-no-8-season-2-key-visual.jpg",
+                "servers": [
+                    {
+                        "name": "سيرفر 1 (Archive)",
+                        "qualities": [
+                            {
+                                "quality": "SD",
+                                "url": "https://archive.org/download/witanime.com-k-8-g-2-s-ep-01-sd/%5BWitanime.com%5D%20K8G2S%20EP%2001%20SD.mp4"
+                            }
+                        ]
+                    }
+                ]
             }
         ]
+    },
+    {
+        "id": "solo-leveling-s2",
+        "title": "Solo Leveling الموسم الثاني",
+        "type": "anime",
+        "is_upcoming": true,
+        "release_date": "يناير 2025",
+        "rating": "9.0",
+        "poster": "https://cdn.myanimelist.net/images/anime/1925/141697l.jpg",
+        "backdrop": "https://cdn.myanimelist.net/images/anime/1925/141697.jpg",
+        "tags": ["أكشن", "مغامرات"],
+        "synopsis": "استعدوا للموسم الثاني من أنمي سولو ليفلينغ، حيث يستمر سونغ جين وو في صعوده ليصبح أقوى صياد.",
+        "info": { "studio": "A-1 Pictures", "year": "2025", "season": "شتاء", "episodes_count": "13", "duration": "24 دقيقة" },
+        "episodes": []
     }
 ]
