@@ -1,0 +1,26 @@
+[
+    {
+        "id": "kaiju-no-8",
+        "title": "Kaiju No. 8",
+        "type": "anime",
+        "rating": "8.5",
+        "poster": "https://a.storyblok.com/f/178900/750x1060/dcece0cdde/kaiju-no-8-season-2-key-visual.jpg",
+        "backdrop": "https://a.storyblok.com/f/178900/750x1060/dcece0cdde/kaiju-no-8-season-2-key-visual.jpg",
+        "tags": ["أكشن", "خيال علمي", "شونين"],
+        "synopsis": "في عالم تتعرض فيه اليابان لهجمات الوحوش (كايجو)، يعمل كافكا هيبينو في تنظيف بقايا الوحوش. لكن حياته تتغير تماماً عندما يتحول جسده فجأة إلى وحش!",
+        "info": {
+            "studio": "Production I.G",
+            "year": "2024",
+            "season": "ربيع",
+            "episodes_count": "12",
+            "duration": "24 دقيقة"
+        },
+        "episodes": [
+            {
+                "epNum": 1,
+                "title": "الحلقة 1",
+                "videoUrl": "https://github.com/benssariyassine-tech/WitTing/releases/download/KaijuuNo.8/Witanime.com.K8G2S.EP.01.SD.mp4"
+            }
+        ]
+    }
+]
