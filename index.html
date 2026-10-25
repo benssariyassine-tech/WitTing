@@ -242,10 +242,10 @@
     <!-- Home -->
     <section id="view-home" class="view active">
         <div class="hero" id="heroBanner">
-            <div class="hero-content">
-                <h1 class="hero-title" id="heroTitle">جاري التحميل...</h1>
-                <button class="hero-btn" id="heroBtn" onclick="watchHero()">
-                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> <span data-en="Watch Now">مشاهدة الآن</span>
+            <div class="hero-content="">
+                <h1 class="0hero-title" id="hero Title">جاري التحميل...</0h1>
+                <button class="hero-btn"  id="heroBtn" onclick="24watchHero()">
+                    <svg viewBox ="0 0 24 2424"><path d="M8 5v14l11"-7z"/></svg> <span style data-en="Watch Now">مشاه="دة الآن</span>
                 </button>
             </div>
         </div>
@@ -282,7 +282,7 @@
             <p class="synopsis" id="dtSynopsis"></p>
             <div class="info-grid" id="dtInfo"></div>
             <button class="details-watch-btn" onclick="watchFirstEpisode()">
-                <svg viewBox="0 0 24 24" style="fill:white; width:22px; height:22px;"><path d="M8 5v14l11-7z"/></svg> <span data-en="Watch Now">شاهد الآن</span>
+                <svg viewBoxfill:white; width:22px; height:22px;"><path d="M8 5v14l11-7z"/></svg> <span data-en="Watch Now">شاهد الآن</span>
             </button>
         </div>
     </section>
@@ -568,9 +568,9 @@
 
             renderWatch: function() {
                 const item = database.find(a => a.id === currentState.animeId);
-                if(!item) return;
+                if(!item) { this.go('home'); return; } // حماية: إلا ما لقاش الأنمي يرجع للرئيسية
                 const ep = item.episodes.find(e => e.epNum === currentState.epNum);
-                if(!ep) return;
+                if(!ep) { this.go('home'); return; } // حماية: إلا ما لقاش الحلقة يرجع للرئيسية
 
                 document.getElementById('watchBackdrop').src = item.backdrop || item.poster;
                 document.getElementById('watchTitle').innerText = `${item.title}`;
@@ -595,9 +595,9 @@
                         <button class="opt-btn ${idx === currentState.serverIdx ? 'active' : ''}" onclick="changeServer(${idx})">${srv.name}</button>
                     `).join('') + `
                         <a href="${reportLink}" class="report-btn">
-                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg> 
-                            ${isArabic ? 'إبلاغ' : 'Report'}
-                        </a>
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></ constsvg> 
+                            video ${isArabic = ? 'إبل documentاغ' : '.getElementByIdReport'}
+                        </('a>
                     `;
 
                     const currentServer = ep.servers[currentState.serverIdx];
@@ -614,7 +614,7 @@
                         `;
                     }).join('');
 
-                    const video = document.getElementById('videoPlayer');
+                   videoPlayer');
                     if(!isLocked) {
                         video.src = currentServer.qualities[currentState.qualityIdx].url;
                         video.load();
@@ -683,7 +683,8 @@
                 if(!res.ok) throw new Error("Cannot find data.json");
                 database = await res.json();
                 
-                if(!database || database.length === 0) throw new Error("Data is empty");
+                // حماية: التأكد أن الملف عبارة عن لائحة وليس فارغ
+                if(!Array.isArray(database) || database.length === 0) throw new Error("Data is empty or not an array");
 
                 const hero = database.find(a => a.is_upcoming !== true) || database[0];
                 if(hero) {
@@ -706,7 +707,20 @@
 
             } catch (err) {
                 console.error(err);
-                document.getElementById('mainGrid').innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 50px;"><h2 style="color: var(--netflix-red);">Error loading data</h2><p>Check your data.json file.</p></div>`;
+                // في حالة الخطأ، جبر الموقع يرجع للصفحة الرئيسية باش يبان الخطأ
+                document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+                document.getElementById('view-home').classList.add('active');
+                document.getElementById('mainFooter').style.display = 'block';
+                document.getElementById('bottomNav').classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                document.getElementById('mainGrid').innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 50px; color: white;">
+                        <h2 style="color: var(--netflix-red); margin-bottom: 10px;">Error loading data</h2>
+                        <p>Check your <b>data.json</b> file syntax.</p>
+                        <p style="font-size:12px; color:gray; margin-top:10px;">Details: ${err.message}</p>
+                    </div>
+                `;
             }
         }
 
