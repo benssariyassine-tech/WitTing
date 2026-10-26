@@ -36,14 +36,15 @@
             {
                 "epNum": 2,
                 "title": "Episode 2 Title",
-                "thumbnail": "رابط_صورة_الحلقة_الثانية_هنا",
+                "thumbnail": "https://a.storyblok.com/f/178900/750x1060/dcece0cdde/kaiju-no-8-season-2-key-visual.jpg",
+
                 "servers": [
                     {
                         "name": "Server 1",
                         "qualities": [
                             {
                                 "quality": "SD",
-                                "url": "رابط_الفيديو_المباشر_للحلقة_الثانية.mp4"
+                                "url": "https://archive.org/download/witanime.com-k-8-g-2-s-ep-02-sd/%5BWitanime.com%5D%20K8G2S%20EP%2002%20SD.mp4"
                             }
                         ]
                     }
