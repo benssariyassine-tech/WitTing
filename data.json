@@ -32,6 +32,22 @@
                         ]
                     }
                 ]
+            },
+            {
+                "epNum": 2,
+                "title": "Episode 2 Title",
+                "thumbnail": "رابط_صورة_الحلقة_الثانية_هنا",
+                "servers": [
+                    {
+                        "name": "Server 1",
+                        "qualities": [
+                            {
+                                "quality": "SD",
+                                "url": "رابط_الفيديو_المباشر_للحلقة_الثانية.mp4"
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     }
