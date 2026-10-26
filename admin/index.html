@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>لوحة التحكم | WitTing</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface-2: #21262d;
+      --border: #30363d;
+      --text: #c9d1d9;
+      --muted: #8b949e;
+      --green: #238636;
+      --blue: #58a6ff;
+      --danger: #f85149;
+      --warning: #d97706;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Tahoma', sans-serif;
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 20px 60px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 20px;
+      background: rgba(22, 27, 34, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 24px;
+    }
+
+    .topbar h1 {
+      margin: 0;
+      font-size: 26px;
+    }
+
+    .btn {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface-2);
+      color: var(--text);
+      padding: 10px 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--green), #2ea043);
+      border-color: transparent;
+      color: white;
+    }
+
+    .btn.danger {
+      background: rgba(248, 81, 73, 0.15);
+      border-color: rgba(248, 81, 73, 0.4);
+      color: #fbb4af;
+    }
+
+    .btn.small {
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 24px;
+    }
+
+    .panel {
+      background: rgba(22, 27, 34, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .panel h2 {
+      margin-top: 0;
+      margin-bottom: 18px;
+      font-size: 22px;
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 8px;
+      color: var(--muted);
+    }
+
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 11px 12px;
+      font-size: 14px;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .checkbox {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .checkbox input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--green);
+    }
+
+    .list {
+      display: grid;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px;
+    }
+
+    .item-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .item-card img {
+      width: 56px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+    }
+
+    .item-info {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .item-info strong {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .item-info span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .status {
+      color: var(--warning);
+      margin-top: 18px;
+      min-height: 24px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+      .row { grid-template-columns: 1fr; }
+      .topbar { flex-direction: column; align-items: flex-start; }
+      .item-row { flex-direction: column; align-items: stretch; }
+      .actions { justify-content: flex-end; }
+    }
+  </style>
+</head>
+<body data-page="dashboard">
+  <div class="wrap">
+    <div class="topbar">
+      <h1>لوحة التحكم</h1>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span id="authStatus">جاري التحقق...</span>
+        <button id="logoutBtn" class="btn danger">تسجيل الخروج</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <section class="panel">
+        <h2>إضافة / تعديل محتوى</h2>
+        <form id="animeForm">
+          <input type="hidden" id="animeId" />
+
+          <div class="row">
+            <div>
+              <label>العنوان</label>
+              <input id="title" type="text" placeholder="عنوان المحتوى" required />
+            </div>
+            <div>
+              <label>العنوان بالإنجليزية</label>
+              <input id="titleEn" type="text" placeholder="English title" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label>النوع</label>
+              <select id="type">
+                <option value="anime">أنمي</option>
+                <option value="movie">فيلم</option>
+              </select>
+            </div>
+            <div>
+              <label>التقييم</label>
+              <input id="rating" type="text" value="8.5" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label>رابط صورة الملصق</label>
+              <input id="poster" type="url" placeholder="https://..." />
+            </div>
+            <div>
+              <label>رابط صورة الخلفية</label>
+              <input id="backdrop" type="url" placeholder="https://..." />
+            </div>
+          </div>
+
+          <div>
+            <label>الوسوم</label>
+            <input id="tags" type="text" placeholder="Action, Sci-Fi, Drama" />
+          </div>
+
+          <div>
+            <label>الوصف</label>
+            <textarea id="synopsis" placeholder="اكتب وصفًا مختصرًا..."></textarea>
+          </div>
+
+          <div class="row">
+            <div>
+              <label>الاستوديو</label>
+              <input id="studio" type="text" placeholder="Production I.G" />
+            </div>
+            <div>
+              <label>السنة</label>
+              <input id="year" type="text" value="2025" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label>عدد الحلقات</label>
+              <input id="episodes_count" type="text" value="12" />
+            </div>
+            <div>
+              <label>المدة</label>
+              <input id="duration" type="text" value="24 min" />
+            </div>
+          </div>
+
+          <label class="checkbox">
+            <input id="published" type="checkbox" checked />
+            <span>منشور في الموقع</span>
+          </label>
+
+          <button type="submit" class="btn primary">حفظ المحتوى</button>
+          <div id="formStatus" class="status"></div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h2>قائمة المحتوى</h2>
+        <div id="animeList" class="list"></div>
+      </section>
+    </div>
+  </div>
+
+  <script type="module" src="../assets/admin.js"></script>
+</body>
+</html>
