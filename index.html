@@ -49,27 +49,26 @@
             border-bottom: 1px solid var(--gh-border);
         }
         
-        /* شعار SVG المخصص */
-        .site-logo { display: flex; align-items: center; cursor: pointer; }
-        .site-logo svg { height: 35px; width: auto; transition: transform 0.2s; }
-        .site-logo:active svg { transform: scale(0.95); }
+        /* الشعار الجديد */
+        .site-logo { display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--gh-text); font-weight: 900; font-size: 22px; letter-spacing: 1px;}
+        .site-logo svg { width: 28px; height: 28px; fill: var(--gh-green); filter: drop-shadow(0 0 8px rgba(35, 134, 54, 0.5)); }
+        .site-logo:active { transform: scale(0.95); }
         
         .header-actions { display: flex; align-items: center; gap: 10px; }
         
-        .lang-toggle, .vip-btn {
+        .lang-toggle {
             background: var(--gh-surface); border: 1px solid var(--gh-border);
             color: var(--gh-text); padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 600;
             cursor: pointer; transition: 0.2s;
         }
-        .vip-btn { background: rgba(88, 166, 255, 0.1); border-color: rgba(88, 166, 255, 0.4); color: var(--gh-blue); }
-        .lang-toggle:hover, .vip-btn:hover { background: var(--gh-surface-hover); border-color: var(--gh-text-muted); }
+        .lang-toggle:hover { background: var(--gh-surface-hover); border-color: var(--gh-text-muted); }
 
         .icon-btn { background: var(--gh-surface); border: 1px solid var(--gh-border); color: var(--gh-text); cursor: pointer; padding: 6px; border-radius: 6px; }
-        .icon-btn svg { width: 20px; height: 20px; fill: currentColor; }
+        .icon-btn svg { width: 20px; height: 20px; fill: currentColor:; }
 
         /* زر الرجوع */
-        .back-btn {
-            position: fixed; top: 80px; right: 20px; z-index: 999; width: 40px; height: 40px; border-radius: 50%;
+         .back-btn {
+            position: fixed; top0: 80px; right: 20px;  z-index: 999; width: 40px; height: 40px; border-radius: 50%;
             background: var(--gh-surface); border: 1px solid var(--gh-border); color: var(--gh-text);
             display: none; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s;
             box-shadow: 0 4px 12px rgba(0,0,0,0.5);
@@ -93,16 +92,16 @@
             background: linear-gradient(to top, var(--gh-bg) 0%, rgba(13,17,23,0.8) 20%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.8) 100%);
         }
         .hero-content { position: relative; z-index: 2; text-align: center; padding-bottom: 20px;}
-        .hero-title { font-size: 32px; font-weight: 900; margin-bottom: 20px; text-shadow: 0 4px 20px rgba(0,0,0,0.9); line-height: 1.2; color: #fff;}
+        .hero-title { font-size: 32px; font-weight: 900; margin-bottom: 20px; text-shadow4px 20px rgba(0,0,0,0.9); line-height: 1.2; color: #fff;}
         
+        /* زر المشاهدة بدون عنوان (أيقونة فقط) */
         .hero-btn {
             background: var(--gh-green); border: 1px solid rgba(255,255,255,0.1);
-            color: white; padding: 14px 35px; border-radius: 8px; font-weight: 800; font-size: 16px;
-            display: inline-flex; align-items: center; gap: 10px; cursor: pointer; 
-            box-shadow: 0 4px 15px rgba(35, 134, 54, 0.3); transition: 0.2s;
+            color: white; padding: 16px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; 
+            cursor: pointer; box-shadow: 0 4px 15px rgba(35, 134, 54, 0.4); transition: 0.2s;
         }
-        .hero-btn:active { transform: scale(0.95); background: #2ea043; }
-        .hero-btn svg { width: 20px; height: 20px; fill: white; }
+        .hero-btn:active { transform: scale(0.9); background: #2ea043; }
+        .hero-btn svg { width: 32px; height: 32px; fill: white; }
 
         .section-header { display: flex; align-items: center; justify-content: space-between; padding: 0 20px; margin: 25px 0 15px; display: none; border-bottom: 1px solid var(--gh-border); padding-bottom: 10px;}
         .section-title { font-size: 20px; font-weight: 800; color: var(--gh-text); }
@@ -116,7 +115,7 @@
         .row-card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; }
         .row-card-badge { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.8); padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; border: 1px solid var(--gh-border); color: #fff;}
 
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 15px; padding: 0 20px 100px; margin-top: 60px; }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 15px; padding: 0 20px 120px; margin-top: 60px; }
         .card {
             border-radius: 8px; overflow: hidden; position: relative; cursor: pointer; background: var(--gh-surface); 
             transition: transform 0.2s; border: 1px solid var(--gh-border);
@@ -127,7 +126,7 @@
 
         /* ================= التفاصيل ================= */
         .details-bg { width: 100%; height: 50vh; object-fit: cover; position: absolute; top: 0; left: 0; z-index: -1; mask-image: linear-gradient(to bottom, black 30%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 100%); opacity: 0.6;}
-        .details-content { padding: 30vh 20px 100px; position: relative; z-index: 2;}
+        .details-content { padding: 30vh 20px 120px; position: relative; z-index: 2;}
         .details-header { display: flex; gap: 15px; margin-bottom: 20px; align-items: flex-end;}
         .details-poster { width: 110px; border-radius: 8px; border: 1px solid var(--gh-border); background: var(--gh-surface);}
         .details-info h1 { font-size: 24px; font-weight: 800; margin-bottom: 10px; color: #fff;}
@@ -137,18 +136,20 @@
         .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 30px; font-size: 13px; color: var(--gh-text-muted); background: var(--gh-surface); padding: 15px; border-radius: 8px; border: 1px solid var(--gh-border); }
         .info-grid span { font-weight: bold; color: var(--gh-text); display: block; margin-top: 3px;}
         
+        /* زر المشاهدة في التفاصيل (أيقونة فقط) */
         .details-watch-btn {
             width: 100%; justify-content: center; background: var(--gh-green); color: white;
-            border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding8: 15px; font-size: 16pxpx; font-weight: 800;
-             display: flex; align-items: center; gap: 1016px; cursor: pointer; transition: 0.2s;
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 15px; font-size: 16px; font-weight: 800;
+            display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.2s;
         }
         .details-watch-btn:active { transform: scale(0.97); background: #2ea043; }
+        .details-watch-btn svg { width: 32px; height: 32px; fill: white; }
 
         /* ================= المشاهدة ================= */
         .watch-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; object-fit: cover; filter: blur(40px) brightness(0.1); z-index: -1; }
         .video-wrapper { width: 100%; aspect-ratio: 16/9; background: #000; margin-top: 70px; border-bottom: 1px solid var(--gh-border);}
         .video-wrapper video { width: 100%; height: 100%; }
-        .watch-content { padding: 20px 20px 100px; background: var(--gh-bg); }
+        .watch-content { padding: 20px 20px 120px; background: var(--gh-bg); }
         .watch-title { font-size: 20px; font-weight: 800; margin-bottom: 5px; color: #fff;}
         .watch-subtitle { font-size: 14px; color: var(--gh-text-muted); margin-bottom: 20px;}
 
@@ -165,8 +166,6 @@
         }
         .opt-btn:hover { background: var(--gh-surface-hover); }
         .opt-btn.active { background: var(--gh-blue); border-color: var(--gh-blue); color: #fff; }
-        .opt-btn.premium-locked { opacity: 0.7; border-color: var(--gh-blue); color: var(--gh-blue); }
-        .opt-btn.premium-locked.active { background: var(--gh-blue); color: #fff; }
 
         .ep-list { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 20px; }
         .ep-card {
@@ -189,7 +188,7 @@
             transition: transform 0.3s, opacity 0.3s;
         }
         .floating-nav.hidden { transform: translate(-50%, 150%); opacity: 0; }
-        .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--gh-text-muted); font-size: 11px; font-weight: 600; gap: 4px; cursor: pointer; transition: color 0.2s; padding: px;}
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--gh-text-muted); font-size: 11px; font-weight: 600; gap: 4px; cursor: pointer; transition: color 0.2s; padding: 8px 16px;}
         .nav-item svg { width: 20px; height: 20px; fill: currentColor; }
         .nav-item.active { color: var(--gh-blue); }
 
@@ -211,39 +210,6 @@
         .modal-text { font-size: 14px; color: var(--gh-text-muted); line-height: 1.7; }
         .modal-text b { color: var(--gh-text); }
 
-        /* باقات الاشتراك */
-        .plan-card { background: var(--gh-bg); border: 1px solid var(--gh-border); border-radius: 8px; padding: 15px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; cursor: pointer; }
-        .plan-card:hover, .plan-card.selected { border-color: var(--gh-blue); }
-        .plan-info h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; color: var(--gh-text);}
-        .plan-info p { font-size: 12px; color: var(--gh-text-muted); }
-        .plan-price { font-size: 18px; font-weight: 800; color: var(--gh-blue);}
-        
-        /* شبكات الهاتف */
-        .network-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 15px 0; }
-        .network-btn { background: var(--gh-bg); border: 1px solid var(--gh-border); border-radius: 8px; padding: 12px 8px; display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; transition: 0.2s;}
-        .network-btn:hover, .network-btn.selected { border-color: var(--gh-blue); }
-        .network-btn span { font-size: 12px; font-weight: bold; color: var(--gh-text);}
-        
-        /* شعارات الشبكات */
-        .logo-mobilis { width: 30px; height: 30px; background: #009639; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; color: white; font-size: 12px;}
-        .logo-djezzy { width: 30px; height: 30px; background: #E30613; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; color: white; font-size: 12px;}
-        .logo-ooredoo { width: 30px; height: 30px; background: #E30613; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; color: white; font-size: 12px;}
-
-        .input-group { margin-top: 15px; }
-        .input-group input {
-            width: 100%; background: var(--gh-bg); border: 1px solid var(--gh-border);
-            padding: 12px; border-radius: 6px; color: var(--gh-text); font-size: 14px; outline: none; text-align: center;
-        }
-        .input-group input:focus { border-color: var(--gh-blue); box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.3); }
-
-        .pay-btn {
-            width: 100%; background: var(--gh-green); color: white; border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 6px; padding: 14px; font-size: 15px; font-weight: bold;
-            margin-top: 20px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
-        }
-        .pay-btn:hover { background: #2ea043; }
-        .pay-btn:active { transform: scale(0.98); }
-
         /* ================= التذييل (Footer) ================= */
         .site-footer {
             margin-top: auto; padding: 30px 20px 90px; background: var(--gh-bg);
@@ -263,19 +229,12 @@
     </button>
 
     <header class="header" id="mainHeader">
+        <!-- الشعار الجديد المصمم بـ CSS -->
         <div class="site-logo" onclick="router.go('home')">
-            <!-- الشعار المخصص (SVG) -->
-            <svg viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- أيقونة -->
-                <path d="M12 2L22 20H2L12 2Z" fill="#58a6ff" opacity="0.2"/>
-                <path d="M12 6L18 18H6L12 6Z" fill="#58a6ff"/>
-                <path d="M22 20L12 38L2 20H22Z" fill="#238636"/>
-                <!-- نص -->
-                <text x="30" y="26" font-family="Tajawal, sans-serif" font-weight="900" font-size="22" fill="#c9d1d9" letter-spacing="1">WIT-TING</text>
-            </svg>
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <span>WIT-TING</span>
         </div>
         <div class="header-actions">
-            <button class="vip-btn" onclick="openPremiumModal()" data-en="VIP">VIP</button>
             <button class="lang-toggle" onclick="toggleLang()" id="langBtn">EN</button>
             <button class="icon-btn" onclick="toggleSearch()">
                 <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
@@ -299,8 +258,9 @@
         <div class="hero" id="heroBanner">
             <div class="hero-content">
                 <h1 class="hero-title" id="heroTitle">...</h1>
+                <!-- زر المشاهدة بدون عنوان -->
                 <button class="hero-btn" onclick="watchHero()">
-                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> <span data-en="Watch Now">مشاهدة الآن</span>
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                 </button>
             </div>
         </div>
@@ -323,8 +283,9 @@
             </div>
             <p class="synopsis" id="dtSynopsis"></p>
             <div class="info-grid" id="dtInfo"></div>
+            <!-- زر المشاهدة بدون عنوان (أيقونة فقط) -->
             <button class="details-watch-btn" onclick="watchFirstEpisode()">
-                <svg viewBox="0 0 24 24" style="fill:white; width:20px; height:20px;"><path d="M8 5v14l11-7z"/></svg> <span data-en="Watch Now">شاهد الآن</span>
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
             </button>
         </div>
     </section>
@@ -379,7 +340,8 @@
     <!-- التذييل -->
     <footer class="site-footer" id="mainFooter">
         <div class="footer-links">
-            <a onclick="openLegalModal('support')" data-en="Support">الدعم الفني</a>
+            <!-- رابط الدعم الفني المباشر للإيميل -->
+            <a href="mailto:benssariyassine@gmail.com" data-en="Support">الدعم الفني</a>
             <a onclick="openLegalModal('privacy')" data-en="Privacy">سياسة الخصوصية</a>
             <a onclick="openLegalModal('dmca')" data-en="DMCA">حقوق الملكية</a>
             <a href="https://github.com" target="_blank">
@@ -390,44 +352,7 @@
         <div class="footer-copy">© 2025 Wit-Ting. All rights reserved.</div>
     </footer>
 
-    <!-- نافذة الدفع -->
-    <div class="modal-overlay" id="premiumModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closePremiumModal()">
-                <svg viewBox="0 0 24 24" style="width:20px; fill:currentColor;"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-            </button>
-            <h2 class="modal-title">
-                <span data-en="Upgrade to Premium">الترقية للنسخة المميزة</span>
-            </h2>
-            <p style="color: var(--gh-text-muted); font-size: 13px; margin-bottom: 20px;" data-en="Get HD & Full HD quality without ads.">احصل على جودة HD و Full HD بدون إعلانات.</p>
-
-            <div class="plan-card" onclick="selectPlan(this, 'HD', 550)">
-                <div class="plan-info"><h3 data-en="HD Plan">باقة HD</h3><p data-en="720p Quality">جودة عالية 720p</p></div>
-                <div class="plan-price">550 DA</div>
-            </div>
-            <div class="plan-card" onclick="selectPlan(this, 'Full HD', 1990)">
-                <div class="plan-info"><h3 data-en="Full HD Plan">باقة Full HD</h3><p data-en="1080p Quality">أفضل جودة 1080p</p></div>
-                <div class="plan-price">1990 DA</div>
-            </div>
-
-            <div class="options-title" style="margin-top:15px; font-size: 12px;" data-en="Choose network for Flexy:">اختر شبكتك للدفع عبر Flexy:</div>
-            <div class="network-grid">
-                <div class="network-btn" onclick="selectNetwork(this, 'Mobilis')"><div class="logo-mobilis">M</div><span data-en="Mobilis">موبيليس</span></div>
-                <div class="network-btn" onclick="selectNetwork(this, 'Djezzy')"><div class="logo-djezzy">D</div><span data-en="Djezzy">جازي</span></div>
-                <div class="network-btn" onclick="selectNetwork(this, 'Ooredoo')"><div class="logo-ooredoo">O</div><span data-en="Ooredoo">أوريدو</span></div>
-            </div>
-
-            <div class="input-group">
-                <input type="tel" id="phoneNumber" placeholder="رقم الهاتف (0550123456)" data-en="Phone Number (0550123456)" maxlength="10">
-            </div>
-
-            <button class="pay-btn" onclick="processFlexyPayment()">
-                <span data-en="Pay Now via Flexy">دفع الآن عبر Flexy</span>
-            </button>
-        </div>
-    </div>
-
-    <!-- نافذة الصفحات القانونية والدعم -->
+    <!-- نافذة الصفحات القانونية -->
     <div class="modal-overlay" id="legalModal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeLegalModal()">
@@ -443,9 +368,6 @@
         let database = [];
         let currentState = { animeId: null, epNum: null, serverIdx: 0, qualityIdx: 0 };
         let isArabic = true;
-        let isPremium = false; 
-        let selectedPlanPrice = 0;
-        let selectedNetwork = '';
 
         // ================= جلب البيانات =================
         async function init() {
@@ -484,7 +406,6 @@
                 document.getElementById('videoPlayer').pause();
                 document.getElementById('mainFooter').style.display = (page === 'watch') ? 'none' : 'block';
 
-                // إصلاح مشكلة اختفاء القائمة السفلية
                 if (page === 'watch') {
                     document.getElementById('bottomNav').classList.add('hidden');
                 } else {
@@ -596,20 +517,10 @@
 
                     const currentServer = ep.servers[currentState.serverIdx];
                     
-                    qualityGroup.innerHTML = currentServer.qualities.map((q, idx) => {
-                        const isLocked = (q.quality.includes('HD') || q.quality.includes('1080')) && !isPremium;
-                        return `
-                            <button class="opt-btn ${idx === currentState.qualityIdx ? 'active' : ''} ${isLocked ? 'premium-locked' : ''}" 
-                                onclick="${isLocked ? 'openPremiumModal()' : `changeQuality(${idx})`}">
-                                ${q.quality} 
-                                ${isLocked ? '<svg viewBox="0 0 24 24" style="width:14px; fill:currentColor; margin-right:5px;"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6z"/></svg>' : ''}
-                            </button>
-                        `;
-                    }).join('');
-
-                    if (!isPremium && (currentServer.qualities[currentState.qualityIdx].quality.includes('HD') || currentServer.qualities[currentState.qualityIdx].quality.includes('1080'))) {
-                        currentState.qualityIdx = 0; 
-                    }
+                    // الجودات متاحة للجميع بدون أقفال
+                    qualityGroup.innerHTML = currentServer.qualities.map((q, idx) => `
+                        <button class="opt-btn ${idx === currentState.qualityIdx ? 'active' : ''}" onclick="changeQuality(${idx})">${q.quality}</button>
+                    `).join('');
 
                     const video = document.getElementById('videoPlayer');
                     video.src = currentServer.qualities[currentState.qualityIdx].url;
@@ -639,42 +550,6 @@
 
         function watchHero() {
             if(database[0]) router.go('watch', database[0].id, database[0].episodes[0].epNum);
-        }
-
-        // ================= الدفع والبريميوم =================
-        function openPremiumModal() { document.getElementById('premiumModal').classList.add('active'); }
-        function closePremiumModal() { document.getElementById('premiumModal').classList.remove('active'); }
-        
-        function selectPlan(el, name, price) {
-            document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
-            el.classList.add('selected');
-            selectedPlanPrice = price;
-        }
-        function selectNetwork(el, name) {
-            document.querySelectorAll('.network-btn').forEach(c => c.classList.remove('selected'));
-            el.classList.add('selected');
-            selectedNetwork = name;
-        }
-
-        function processFlexyPayment() {
-            const phone = document.getElementById('phoneNumber').value;
-            if (!selectedNetwork) return alert(isArabic ? 'الرجاء اختيار شبكة الهاتف أولاً' : 'Please select a network first');
-            if (phone.length < 10) return alert(isArabic ? 'الرجاء إدخال رقم هاتف صحيح' : 'Please enter a valid phone number');
-            if (selectedPlanPrice === 0) return alert(isArabic ? 'الرجاء اختيار الباقة أولاً' : 'Please select a plan first');
-
-            let ussdCode = '';
-            if (selectedNetwork === 'Mobilis') ussdCode = '%2A105%23';
-            if (selectedNetwork === 'Djezzy') ussdCode = '%2A710%23';
-            if (selectedNetwork === 'Ooredoo') ussdCode = '%2A555%23';
-
-            window.location.href = `tel:${ussdCode}`;
-            
-            setTimeout(() => {
-                isPremium = true;
-                closePremiumModal();
-                if(document.getElementById('view-watch').classList.contains('active')) router.renderWatch();
-                alert(isArabic ? 'تم تفعيل جودة HD/Full HD بنجاح!' : 'Premium activated successfully!');
-            }, 2000);
         }
 
         // ================= الترجمة (Language Toggle) =================
@@ -728,7 +603,7 @@
             `).join('');
         }
 
-        // ================= النافذة القانونية والدعم =================
+        // ================= النافذة القانونية =================
         function openLegalModal(type) {
             const titleEl = document.getElementById('legalTitle');
             const textEl = document.getElementById('legalText');
@@ -744,11 +619,6 @@
                 textEl.innerHTML = isArabic ? 
                     'جميع الحقوق محفوظة لأصحابها.<br><br>• إذا كنت مالك حقوق وتعتقد أن هناك انتهاكاً، يرجى التواصل معنا.<br>• سيتم إزالة المحتوى المخالف فوراً بعد التحقق.' : 
                     'All rights reserved to their respective owners.<br><br>• If you are a rights holder and believe there is an infringement, please contact us.<br>• Infringing content will be removed immediately upon verification.';
-            } else if (type === 'support') {
-                titleEl.innerText = isArabic ? 'الدعم الفني' : 'Technical Support';
-                textEl.innerHTML = isArabic ? 
-                    'نحن هنا لمساعدتك!<br><br>• إذا واجهت مشكلة في التشغيل، جرب تغيير السيرفر.<br>• يمكنك مراسلتنا عبر البريد الإلكتروني:<br><br><b>support@wit-ting.com</b>' : 
-                    'We are here to help!<br><br>• If you face playback issues, try changing the server.<br>• You can email us at:<br><br><b>support@wit-ting.com</b>';
             }
             modal.classList.add('active');
         }
